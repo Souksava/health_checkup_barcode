@@ -1,0 +1,272 @@
+<?php
+ include ('connect.php');
+include('barcode/src/BarcodeGenerator.php');
+include('barcode/src/BarcodeGeneratorSVG.php');
+include('barcode/src/BarcodeGeneratorPNG.php');
+include('barcode/src/BarcodeGeneratorJPG.php');
+include('barcode/src/BarcodeGeneratorHTML.php');
+include (''.$path.'/PHPExcel/Classes/PHPExcel.php');
+include (''.$path.'PHPExcel/Classes/PHPExcel/IOFactory.php');
+date_default_timezone_set("Asia/Bangkok");
+$datenow = time();
+$Date = date("Y-m-d",$datenow);
+$Date_barcode = date("dmy",$datenow);
+$Time = date("H:i:s",$datenow);
+$border = 5;//กำหนดความหน้าของเส้น Barcode
+$height = 80;//กำหนดความสูงของ Barcode
+class obj{
+    public $conn;
+    public $search;
+    public static function insert_employee($barcode,$emp_id,$emp_name,$surname,$dob,$age,$gender,$company,$branch,$department,$tel,$family_stt,$nation,$ethnnic,$religion,$job,$house_no,$village,$district,$province){//Insert Employee                                 
+        global $conn;
+        global $border;
+        global $height;
+        $result = mysqli_query($conn,"call insert_employee('$barcode','$emp_id','$emp_name','$surname','$dob','$age','$gender','$company','$branch','$department','$tel','$family_stt','$nation','$ethnnic','$religion','$job','$house_no','$village','$district','$province');");
+        if(!$result){ //ກວດສອບການບັນທຶກຂໍ້ມູນຖ້າເກີດຂໍ້ຜິດພາດໃຫ້ມາເຮັດວຽກຢູ່ນີ້
+            echo"<script>";
+            echo"window.location.href='register?save=fail';";
+            echo"</script>";
+        }
+        else{//ກວດສອບການບັນທຶກຂໍ້ມູນຖ້າບໍ່ມີຂໍ້ຜິດພາດໃຫ້ມາເຮັດວຽກຢູ່ນີ້
+            $generatorJPG = new Picqer\Barcode\BarcodeGeneratorJPG();
+            file_put_contents('barcode/'.$barcode.'.jpg', $generatorJPG->getBarcode(''.$barcode.'', $generatorJPG::TYPE_CODE_128,$border,$height));
+            echo"<script>";
+            echo"window.location.href='register?save2=success';";
+            echo"</script>";
+        }
+    }  
+    public static function import_emp($file_path){
+        global $conn;
+        global $Date_barcode;
+        global $border;
+        global $height;
+        global $path;
+        $objPHPExcel = PHPExcel_IOFactory::load($file_path);
+        foreach($objPHPExcel->getWorksheetIterator() as $worksheet){
+            $highestRow = $worksheet->getHighestRow();
+            for($row=2; $row<=$highestRow;$row++){
+
+                    $emp_id = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(1, $row)->getValue());
+                    $emp_name = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(2, $row)->getValue());
+                    $surname = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(3, $row)->getValue());
+                    $dob = \PHPExcel_Style_NumberFormat::toFormattedString(mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(4, $row)->getValue()),'YYYY-MM-DD');
+                    $age = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(5, $row)->getValue());
+                    $gender = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(6, $row)->getValue());
+                    $company = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(7, $row)->getValue());
+                    $branch = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(8, $row)->getValue());
+                    $department = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(9, $row)->getValue());
+                    $tel = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(10, $row)->getValue());
+                    $family_stt = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(11, $row)->getValue());
+                    $nation = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(12, $row)->getValue());
+                    $ethnic = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(13, $row)->getValue());
+                    $religion = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(14, $row)->getValue());
+                    $job = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(15, $row)->getValue());
+                    $house_no = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(16, $row)->getValue());
+                    $village = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(17, $row)->getValue());
+                    $district = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(18, $row)->getValue());
+                    $province = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(19, $row)->getValue());
+                    $barcode = "";
+                    $get_barcode = mysqli_query($conn,"call max_barcode_emp();");
+                    if(mysqli_num_rows($get_barcode) > 0){
+                        $max = mysqli_fetch_array($get_barcode,MYSQLI_ASSOC);
+                        $no_ = (int)$max['barcode']+1;
+                        $new_max = sprintf("%05s",$no_);
+                        $barcode = "1".$Date_barcode.$new_max; 
+                    }
+                    else{
+                        $barcode = "1".$Date_barcode."00001"; 
+                    }
+                    mysqli_free_result($get_barcode);  
+                    mysqli_next_result($conn);
+                    $result = mysqli_query($conn,"call insert_employee('$barcode','$emp_id','$emp_name','$surname','$dob','$age','$gender','$company','$branch','$department','$tel','$family_stt','$nation','$ethnic','$religion','$job','$house_no','$village','$district','$province')");
+                    $generatorJPG = new Picqer\Barcode\BarcodeGeneratorJPG();
+                    file_put_contents('barcode/'.$barcode.'.jpg', $generatorJPG->getBarcode(''.$barcode.'', $generatorJPG::TYPE_CODE_128,$border,$height));
+            }
+        }
+        echo"<script>";
+        echo"window.location.href='register?import=success';";
+        echo"</script>";
+    }
+    public static function import_package($file_path){
+        global $conn;
+        global $path;
+        $objPHPExcel = PHPExcel_IOFactory::load($file_path);
+        foreach($objPHPExcel->getWorksheetIterator() as $worksheet){
+            $highestRow = $worksheet->getHighestRow();
+            for($row=2; $row<=$highestRow;$row++){
+                    $pack_name = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(1, $row)->getValue());
+                    $pack_id = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(2, $row)->getValue());
+                    $result = mysqli_query($conn,"call insert_package('$pack_id','$pack_name');");
+            }
+        }
+        echo"<script>";
+        echo"window.location.href='register?import=success';";
+        echo"</script>";
+    }
+    public static function select_employee_limit($company,$search,$page){
+        global $conn;
+        global $result_emp;
+        $result_emp = mysqli_query($conn,"call select_employee_limit('$company','$search','$page');");
+    }
+    public static function count_emp($company,$search){
+        global $conn;
+        global $resultemp_count;
+        $resultemp_count = mysqli_query($conn,"call select_employee('$company','$search');");
+    }
+    public static function delete_emp($id){
+        global $conn;
+        // $check_del_emp = mysqli_query($conn,"call check_del_emp('$id');");
+        $check_del_emp = mysqli_query($conn,"select * from register where barcode='$id'");
+        if(mysqli_num_rows($check_del_emp) > 0){
+            echo"<script>";
+            echo"window.location.href='register?register=true';";
+            echo"</script>";
+        }
+        else{
+            // mysqli_free_result($check_del_emp);  
+            // mysqli_next_result($conn);
+            $result = mysqli_query($conn,"call delete_emp('$id');");
+            // $result = mysqli_query($conn,"delete from employee where barcode='$id'");
+            if(!$result){
+                echo"<script>";
+                echo"window.location.href='register?del=fail';";
+                echo"</script>";
+            }
+            else{
+                echo"<script>";
+                echo"window.location.href='register?del2=success';";
+                echo"</script>";
+            }
+        }
+    }
+    public static function select_package_limit($search,$page){
+        global $conn;
+        global $resultPackage_limit;
+        $resultPackage_limit = mysqli_query($conn,"call select_package_limit('$search','$page');");
+    }
+    public static function select_package($search){
+        global $conn;
+        global $result_package_count;
+        $result_package_count = mysqli_query($conn,"call select_package('$search');");
+    }
+    public static function del_package($id){
+        global $conn;
+        // $check_del_package = mysqli_query($conn,"call check_del_package('$id');");
+        $check_del_package = mysqli_query($conn,"select * from registerdetail where pack_id='$id';");
+        // mysqli_free_result($check_del_package);  
+        // mysqli_next_result($conn);
+        if(mysqli_num_rows($check_del_package) > 0){
+            echo"<script>";
+            echo"window.location.href='register?package=true';";
+            echo"</script>";
+        }
+        else{
+            $result = mysqli_query($conn,"call del_package('$id');");
+            if(!$result){
+                echo"<script>";
+                echo"window.location.href='register?del=fail';";
+                echo"</script>";
+            }
+            else{
+                echo"<script>";
+                echo"window.location.href='register?del2=success';";
+                echo"</script>";
+            }
+        }
+    }
+    public static function select_package_list(){
+        global $cart_data_package_list;
+        if(isset($_COOKIE['package_list'])){//ຕອນໂຫຼດກວດສອບວ່າຄຸກກີ້ມີຄ່າວ່າງຫຼືບໍ່
+            $cookie_data = $_COOKIE['package_list'];//ຕັ້ງຄຸກກີ້ໃຫ້ເປັນ string
+            $cart_data_package_list = json_decode($cookie_data, true);// ຕັ້ງຄຸກກີ້ໃຫ້ເປັນຮູບແບບ json
+        }
+    }
+    public static function cookie_list($pack_id,$pack_name){
+        if(isset($_COOKIE['package_list'])){//ກວດສອບວ່າຄຸກກີ້ stock_list ນັ້ນມີຄ່າຫຼືບໍ່
+            $cookie_data = $_COOKIE['package_list'];//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນ String
+            $cart_data = json_decode($cookie_data, true);//Decode ຄ່າຄຸກກີ້ອອກມາໃຫ້ອ່ານຄ່າເປັນ Array ໄດ້ໃນຮູບແບບ json
+        }
+        else{
+            $cart_data = array();//ຖ້າຄຸກກີ້ບໍ່ມີຄ່າຂໍ້ມູນແລ້ວຕັ້ງໂຕປ່ຽນໃຫ້ເປັນອາເລ
+        }
+        if(isset($_COOKIE['package_more'])){//ກວດສອບວ່າຄຸກກີ້ package_list ນັ້ນມີຄ່າຫຼືບໍ່
+            $cookie_data2 = $_COOKIE['package_more'];//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນ String
+            $cart_data2 = json_decode($cookie_data2, true);//Decode ຄ່າຄຸກກີ້ອອກມາໃຫ້ອ່ານຄ່າເປັນ Array ໄດ້ໃນຮູບແບບ json
+        }
+        $item_id_list2 = array_column($cart_data2,'pack_id');
+        $item_id_list = array_column($cart_data,'pack_id');//ຕັ້ງຄ່າ pack_id_list ໃຫ້ມີຄ່າເທົ່າກັບ array $cart_data['pack_id']
+        if(in_array($pack_id,$item_id_list)){//ຖ້າວ່າ Serial ທີ່ປ້ອນມາທາງຄີບອດຕົງກັນກັບ Serial ທີ່ຢູ່ໃນ Array Cart_data ໃຫ້ເຮັດວຽກຈຸດນີ້
+            echo"<script>";
+            echo"window.location.href='register?list=same';";
+            echo"</script>";
+        }
+        else if(in_array($pack_id,$item_id_list2)){//ຖ້າວ່າ Serial ທີ່ປ້ອນມາທາງຄີບອດຕົງກັນກັບ Serial ທີ່ຢູ່ໃນ Array Cart_data ໃຫ້ເຮັດວຽກຈຸດນີ້
+            echo"<script>";
+            echo"window.location.href='register?addmore=same';";
+            echo"</script>";
+        }
+        else{
+            $item_array = [//ເພີ່ມຂໍ້ມູນທີ່ຮັບມາຈາກຄີບອດເຂົ້າໄວ້ໃນຕົວປ່ຽນອາເລ $item_array
+                "pack_id" => $pack_id,
+                "pack_name" => $pack_name,
+            ];
+            $cart_data[] = $item_array;//ເພີ່ມຂໍ້ມູນຈາກ $item_array ເຂົ້າໄປໃນ $cart_data
+        }
+        $item_data ="";
+        $item_data = json_encode($cart_data);//ປັບ item_data ໃຫ້ມັນສິ້ນສຸດການຮັບຂໍ້ມູນຈາກ $cart_data
+        setcookie('package_list',$item_data,time() + (86400 * 30));//ຕັ້ງຄ່າເວລາຄຸກກີ້
+        echo"<script>";
+        echo"window.location.href='register';";
+        echo"</script>";
+    }
+    public static function select_package_more(){
+        global $cart_data_package_more;
+        if(isset($_COOKIE['package_more'])){//ຕອນໂຫຼດກວດສອບວ່າຄຸກກີ້ມີຄ່າວ່າງຫຼືບໍ່
+            $cookie_data = $_COOKIE['package_more'];//ຕັ້ງຄຸກກີ້ໃຫ້ເປັນ string
+            $cart_data_package_more = json_decode($cookie_data, true);// ຕັ້ງຄຸກກີ້ໃຫ້ເປັນຮູບແບບ json
+        }
+    }
+    public static function cookie_more($pack_id,$pack_name){
+            if(isset($_COOKIE['package_more'])){//ກວດສອບວ່າຄຸກກີ້ stock_list ນັ້ນມີຄ່າຫຼືບໍ່
+                $cookie_data = $_COOKIE['package_more'];//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນ String
+                $cart_data = json_decode($cookie_data, true);//Decode ຄ່າຄຸກກີ້ອອກມາໃຫ້ອ່ານຄ່າເປັນ Array ໄດ້ໃນຮູບແບບ json
+            }
+            else{
+                $cart_data = array();//ຖ້າຄຸກກີ້ບໍ່ມີຄ່າຂໍ້ມູນແລ້ວຕັ້ງໂຕປ່ຽນໃຫ້ເປັນອາເລ
+            }
+            if(isset($_COOKIE['package_list'])){//ກວດສອບວ່າຄຸກກີ້ package_list ນັ້ນມີຄ່າຫຼືບໍ່
+                $cookie_data2 = $_COOKIE['package_list'];//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນ String
+                $cart_data2 = json_decode($cookie_data2, true);//Decode ຄ່າຄຸກກີ້ອອກມາໃຫ້ອ່ານຄ່າເປັນ Array ໄດ້ໃນຮູບແບບ json
+                $item_id_list2 = array_column($cart_data2,'pack_id');
+                // $check = in_array($pack_id,$item_id_list2);
+            }
+        
+            $item_id_list = array_column($cart_data,'pack_id');//ຕັ້ງຄ່າ pack_id_list ໃຫ້ມີຄ່າເທົ່າກັບ array $cart_data['pack_id']
+            if(in_array($pack_id,$item_id_list)){//ຖ້າວ່າ Serial ທີ່ປ້ອນມາທາງຄີບອດຕົງກັນກັບ Serial ທີ່ຢູ່ໃນ Array Cart_data ໃຫ້ເຮັດວຽກຈຸດນີ້
+                echo"<script>";
+                echo"window.location.href='register?addmore=same';";
+                echo"</script>";
+            }
+            else if(in_array($pack_id,$item_id_list2)){//ຖ້າວ່າ Serial ທີ່ປ້ອນມາທາງຄີບອດຕົງກັນກັບ Serial ທີ່ຢູ່ໃນ Array Cart_data ໃຫ້ເຮັດວຽກຈຸດນີ້
+                echo"<script>";
+                echo"window.location.href='register?list=same';";
+                echo"</script>";
+            }
+            else{
+                $item_array = [//ເພີ່ມຂໍ້ມູນທີ່ຮັບມາຈາກຄີບອດເຂົ້າໄວ້ໃນຕົວປ່ຽນອາເລ $item_array
+                    "pack_id" => $pack_id,
+                    "pack_name" => $pack_name,
+                ];
+                $cart_data[] = $item_array;//ເພີ່ມຂໍ້ມູນຈາກ $item_array ເຂົ້າໄປໃນ $cart_data
+            }
+            $item_data ="";
+            $item_data = json_encode($cart_data);//ປັບ item_data ໃຫ້ມັນສິ້ນສຸດການຮັບຂໍ້ມູນຈາກ $cart_data
+            setcookie('package_more',$item_data,time() + (86400 * 30));//ຕັ້ງຄ່າເວລາຄຸກກີ້
+            echo"<script>";
+            echo"window.location.href='register';";
+            echo"</script>";
+    }
+    
+}
+$obj = new obj();
+?>
