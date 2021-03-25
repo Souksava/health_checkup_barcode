@@ -141,6 +141,19 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('click', '.page-links-register', function() {
+        var page_register = this.id;
+        var register_company = $('#register_company').val();
+        var register_search = $('#register_search').val();
+        var register_date = $('#register_date').val();
+        if (register_search != "" || register_company != "" || register_date != "") {
+            load_data_register(register_company, register_search, register_date, page_register);
+        } else {
+            load_data_register("%%", "%%", "%%", page_register);
+        }
+    });
+
+
 
     load_data_registerdetail("");
 

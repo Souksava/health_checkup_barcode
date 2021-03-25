@@ -426,7 +426,7 @@ class obj{
     public static function select_registerdetail($reg_id){
         global $conn;
         global $result_registerdetail;
-        $result_registerdetail = mysqli_query($conn,"call select_registerdetail('$reg_id')");
+        $result_registerdetail = mysqli_query($conn,"call select_registerdetail('$reg_id');");
     }
 }
 $obj = new obj();

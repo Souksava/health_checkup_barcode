@@ -873,36 +873,36 @@
     include ("../../header-footer/footer.php");
 ?>
 <script>
-//     loadReg();
+    loadReg();
 
-// function loadReg() {
-//     $.ajax({
-//         url: "reg.php",
-//         success: function(result) {
-//             $('#reg_id').val(result); //insert text of test.php into your div
-//             setTimeout(function() {
-//                 loadReg(); //this will send request again and again;
-//             }, 10000);
-//         }
-//     });
-// }
-// loadQueue();
+function loadReg() {
+    $.ajax({
+        url: "reg.php",
+        success: function(result) {
+            $('#reg_id').val(result); //insert text of test.php into your div
+            setTimeout(function() {
+                loadReg(); //this will send request again and again;
+            }, 1000);
+        }
+    });
+}
+loadQueue();
 
-// function loadQueue() {
-//     $.ajax({
-//         url: "queue.php",
-//         success: function(result) {
-//             $('.queue').val(result); //insert text of test.php into your div
-//             setTimeout(function() {
-//                 loadQueue(); //this will send request again and again;
-//             }, 30000);
-//             $('.queue').text(result); //insert text of test.php into your div
-//             setTimeout(function() {
-//                 loadQueue(); //this will send request again and again;
-//             }, 30000);
-//         }
-//     });
-// }
+function loadQueue() {
+    $.ajax({
+        url: "queue.php",
+        success: function(result) {
+            $('.queue').val(result); //insert text of test.php into your div
+            setTimeout(function() {
+                loadQueue(); //this will send request again and again;
+            }, 1000);
+            $('.queue').text(result); //insert text of test.php into your div
+            setTimeout(function() {
+                loadQueue(); //this will send request again and again;
+            }, 1000);
+        }
+    });
+}
 
 </script>
 <script>

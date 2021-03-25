@@ -101,7 +101,7 @@ $no_ += 1;
        <nav aria-label="...">
           <ul class="pagination">
              <li class="page-item">
-                <a href="#" class="btn btn-danger page-links_emp" id="'.$previous.'" style="color: white!important;width: 70px;" value="'.$previous.'">ກັບຄືນ</a>
+                <a href="#" class="btn btn-danger page-links-register" id="'.$previous.'" style="color: white!important;width: 70px;" value="'.$previous.'">ກັບຄືນ</a>
              </li>
      ';
     }
@@ -139,7 +139,7 @@ $no_ += 1;
     else{
        echo '
        <li class="page-item">
-          <a href="#" id="'.$b.'" class="btn btn-danger page-link page-links_emp" value="'.$b.'">'.$b.'</a>
+          <a href="#" id="'.$b.'" class="btn btn-danger page-link page-links-register" value="'.$b.'">'.$b.'</a>
        </li>
        ';
     }
@@ -155,7 +155,7 @@ $no_ += 1;
        echo '      
 
                    <li class="page-item">
-                      <a href="#" class="btn btn-success page-links_emp" id="'.$next.'" value="'.$next.'" style="color: white!important;width: 90px;" href="#">ໜ້າຖັດໄປ</a>
+                      <a href="#" class="btn btn-success page-links-register" id="'.$next.'" value="'.$next.'" style="color: white!important;width: 90px;" href="#">ໜ້າຖັດໄປ</a>
                    </li>
                 </ul>
              </nav>
