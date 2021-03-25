@@ -42,29 +42,36 @@
         </div>
     </div>
 </form>
-<div class="modal fade" id="exampleModalRegisterEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ລົງທະບຽນ</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p align="center">ທ່ານຕ້ອງການລົງທະບຽນພະນັກງານຄົນນີ້ ຫຼື ບໍ່ ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
-                <button type="submit" name="Com_Update" id="Com_Update" class="btn btn-outline-primary" onclick="">
-                    ລົງທະບຽນ
-                    <span class="" id="load_save"></span>
-                </button>
+<form action="register" method="POST" id="form_register">
+    <div class="modal fade" id="exampleModalRegisterEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ລົງທະບຽນ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p align="center">ລຳດັບຄິວເລກທີ: <lable class="queue"></lable>
+                    </p>
+                    <input type="hidden" name="queue" id="queue" class="queue">
+                    <input type="hidden" name="reg_id" id="reg_id">
+                    <input type="hidden" name="register_barcode" id="register_barcode">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
+                    <button type="submit" name="btnRegister" id="btnRegister" class="btn btn-outline-primary" onclick="">
+                        ລົງທະບຽນ
+                        <span class="" id="load_Regiser"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 <form action="register" method="POST" id="form_delete_emp">
     <div class="modal fade" id="exampleModalDeleteEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -332,7 +339,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
-                    <button type="submit" name="btnpackage_add_list" id="btnpackage_add_list" class="btn btn-outline-primary" onclick="">
+                    <button type="submit" name="btnpackage_add_list" id="btnpackage_add_list"
+                        class="btn btn-outline-primary" onclick="">
                         ເພີ່ມ
                         <span class="" id="load_package_add_list"></span>
                     </button>
@@ -455,52 +463,112 @@
 
 <!-- End Register -->
 <!-- List -->
-<div class="modal fade" id="exampleModalDeleteList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ລົບລາຍການແພັກເກັດ</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p align="center">ທ່ານຕ້ອງການລົບລາຍການແພັກເກັດ ຫຼື ບໍ່ ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
-                <button type="submit" name="Com_Update" id="Com_Update" class="btn btn-outline-danger" onclick="">
-                    ລົບ
-                    <span class="" id="load_save"></span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="exampleModalDelSTBPackage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ລົບແພັກເກັດກະກຽມ</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p align="center">ທ່ານຕ້ອງການລົບລາຍການແພັກເກັດກະກຽມ ຫຼື ບໍ່ ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
-                <button type="submit" name="Com_Update" id="Com_Update" class="btn btn-outline-danger" onclick="">
-                    ລົບ
-                    <span class="" id="load_save"></span>
-                </button>
+<form action="register" method="POST" id="form_del_more">
+    <div class="modal fade" id="exampleModalDeleteList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ລົບລາຍການແພັກເກັດ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p align="center">ທ່ານຕ້ອງການລົບລາຍການແພັກເກັດເພີ່ມເຕີມ ຫຼື ບໍ່ ?</p>
+                    <input type="hidden" name="del_more" id="del_more">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
+                    <button type="submit" name="btndel_more" id="btndel_more" class="btn btn-outline-danger" onclick="">
+                        ລົບ
+                        <span class="" id="load_del_more"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
+<form action="register" method="POST" id="form_clear_more">
+    <div class="modal fade" id="exampleModalCelar_More" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ລົບລາຍການແພັກເກັດ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p align="center">ທ່ານຕ້ອງການລ້າງລາຍການແພັກເກັດເພີ່ມເຕີມ ຫຼື ບໍ່ ?</p>
+                    <input type="hidden" name="clear_more" id="clear_more">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
+                    <button type="submit" name="btnclear_more" id="btnclear_more" class="btn btn-outline-danger"
+                        onclick="">
+                        ລົບ
+                        <span class="" id="load_clear_more"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<form action="register" method="POST" id="form_del_list">
+    <div class="modal fade" id="exampleModalDelSTBPackage" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ລົບແພັກເກັດກະກຽມ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p align="center">ທ່ານຕ້ອງການລົບລາຍການແພັກເກັດກະກຽມ ຫຼື ບໍ່ ?</p>
+                    <input type="hidden" name="del_list" id="del_list">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
+                    <button type="submit" name="btndel_list" id="btndel_list" class="btn btn-outline-danger" onclick="">
+                        ລົບ
+                        <span class="" id="load_del_list"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<form action="register" method="POST" id="form_clear_list">
+    <div class="modal fade" id="exampleModalCelar_list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ລົບແພັກເກັດກະກຽມ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p align="center">ທ່ານຕ້ອງການລ້າງລາຍການແພັກເກັດກະກຽມ ຫຼື ບໍ່ ?</p>
+                    <input type="hidden" name="clear_list">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
+                    <button type="submit" name="btnclear_list" id="btnclear_list" class="btn btn-outline-danger"
+                        onclick="">
+                        ລົບ
+                        <span class="" id="load_clear_list"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 <!-- End List -->
 
 <!-- End Modal -->
@@ -554,7 +622,14 @@
     <div class="col-xs-12 col-sm-6">
         <div class="card">
             <div class="card-header">
-                ລາຍການກະກຽມແພັກເກັດ
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        ລາຍການກະກຽມແພັກເກັດ
+                    </div>
+                    <div class="col-xs-12 col-sm-6" align="right">
+                        <a href="#" data-toggle="modal" data-target="#exampleModalCelar_list">ລ້າງລາຍການ</a>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <?php
@@ -562,11 +637,11 @@
                     if(isset($_COOKIE['package_list'])){
                 ?>
                 <div class="table-responsive3">
-                    <table class="table-bordered" style="width: 550px;text-align: center;">
+                    <table class="table-bordered" style="width: 680px;text-align: center;">
                         <tr style="font-size: 18px;">
-                            <th></th>
-                            <th>No.</th>
-                            <th>Package</th>
+                            <th style="width: 40px;"></th>
+                            <th style="width:50px;">No.</th>
+                            <th style="width:120px;">Package</th>
                             <th>Description</th>
                         </tr>
                         <?php
@@ -590,7 +665,7 @@
                     </table>
                 </div><br>
                 <div align="right" style="color: red;">
-                    <h3>Total: 3 ລາຍການ</h3>
+                    <h3>Total: <?php echo $no_list ?> ລາຍການ</h3>
                 </div>
                 <?php
                     }
@@ -610,7 +685,14 @@
     <div class="col-xs-12 col-sm-6">
         <div class="card">
             <div class="card-header">
-                ລາຍການແພັກເກັດເພີ່ມຕື່ມ
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        ລາຍການແພັກເກັດເພີ່ມຕື່ມ
+                    </div>
+                    <div class="col-xs-12 col-sm-6" align="right">
+                        <a href="#" data-toggle="modal" data-target="#exampleModalCelar_More">ລ້າງລາຍການ</a>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <?php
@@ -618,11 +700,11 @@
                     if(isset($_COOKIE['package_more'])){
                 ?>
                 <div class="table-responsive3">
-                    <table class="table-bordered" style="width: 550px;text-align: center;">
+                    <table class="table-bordered" style="width: 680px;text-align: center;">
                         <tr style="font-size: 18px;">
-                            <th></th>
-                            <th>No.</th>
-                            <th>Package</th>
+                            <th style="width: 40px;"></th>
+                            <th style="width:50px;">No.</th>
+                            <th style="width:120px;">Package</th>
                             <th>Description</th>
 
                         </tr>
@@ -673,52 +755,14 @@
             </div>
             <div class="card-body">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="ບໍລິສັດ" aria-label="Recipient's username"
+                    <input type="text" class="form-control" id="register_company" placeholder="ບໍລິສັດ" aria-label="Recipient's username"
                         aria-describedby="button-addon2">
-                    <input type="text" class="form-control" placeholder="ລະຫັດ ພ/ງ, ຊື່, ອາຍຸ, ບໍລິສັດ"
+                    <input type="text" class="form-control" id="register_search" placeholder="ລະຫັດ ພ/ງ, ຊື່, ອາຍຸ, ບໍລິສັດ"
                         aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <input type="date" class="form-control" aria-label="Recipient's username"
+                    <input type="date" class="form-control" id="register_date" aria-label="Recipient's username"
                         aria-describedby="button-addon2">
                 </div>
-                <div class="table-responsive">
-                    <table class="table-bordered" style="width: 2000px;text-align: center;">
-                        <tr style="font-size: 18px;">
-                            <th style="width: 90px;">ເຄື່ອງມື</th>
-                            <th style="width: 70px;">No.</th>
-                            <th style="width: 150px;">Reg</th>
-                            <th style="width: 150px;">ລະຫັດພະນັກງານ</th>
-                            <th style="width: 150px;">ຊື່</th>
-                            <th style="width: 150px;">ນາມສະກຸນ</th>
-                            <th style="width: 80px;">ລຳດັບຄິວ</th>
-                            <th style="width: 70px;">ອາຍຸ</th>
-                            <th style="width: 300px;">ບໍລິສັດ</th>
-                            <th style="width: 80px;">Year</th>
-                            <th style="width: 100px;">ວັນທີລົງທະບຽນ</th>
-                            <th style="width: 100px;">ເວລາ</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" data-toggle="modal" data-target="#exampleModalPrint"
-                                    class="fas fa-print toolcolor btnUpdate_cust"></a>&nbsp; &nbsp;
-                                <a href="#" data-toggle="modal" data-target="#exampleModalUpdate"
-                                    class="fas fa-info toolcolor btnUpdate_cust"></a>&nbsp; &nbsp;
-                                <a href="#" data-toggle="modal" data-target="#exampleModalDeleteRegiter"
-                                    class="fa fa-trash toolcolor btnDelete_register"></a>
-                            </td>
-                            <td>1</td>
-                            <td>100093423099</td>
-                            <td>012</td>
-                            <td>ທ່ານ ທົງໄຊ</td>
-                            <td>ພູນຊັບທະວີກິດ</td>
-                            <td>1</td>
-                            <td>55</td>
-                            <td>Mangkone Technology Co.,Ltd</td>
-                            <td>2021</td>
-                            <td>19/03/2021</td>
-                            <td>17:00:00</td>
-                        </tr>
-                    </table>
-                </div><br>
+                <div id="result_register" class="result_register"></div>
             </div>
         </div>
     </div>
@@ -726,25 +770,10 @@
         <div class="card">
             <div class="card-header">
                 ລາຍລະອຽດການລົງທະບຽນ
+                <input type="hidden" name="detail" class="detail" id="detail">
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table-bordered" style="width: 750px;text-align: center;">
-                        <tr style="font-size: 18px;">
-                            <th>No.</th>
-                            <th>Package</th>
-                            <th>Package Name</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Urine</td>
-                            <td>Urinalvsis</td>
-                        </tr>
-                    </table>
-                </div><br>
-                <div align="right" style="color: red;">
-                    <h3>Total: 3 ລາຍການ</h3>
-                </div>
+            <div id="result_registerdetail"></div>
             </div>
         </div>
     </div>
@@ -767,11 +796,11 @@
         $obj->insert_employee($barcode,$_POST["emp_id"],$_POST["emp_name"],$_POST["surname"],$_POST["dob"],$_POST["age"],$_POST["gender"],$_POST["company"],$_POST["branch"],$_POST["department"],$_POST["tel"],$_POST["family_stt"],$_POST["nation"],$_POST["ethnnic"],$_POST["religion"],$_POST["job"],$_POST["house_no"],$_POST["village"],$_POST["district"],$_POST["province"]);
     }
     if(isset($_POST["upload_emp_id"])){
-        $obj->import_emp($_FILES['emp_file']['tmp_name']);
+        $obj->import_emp($_FILES["emp_file"]["tmp_name"]);
 
     }
     if(isset($_POST["upload_pack_id"])){
-        $obj->import_package($_FILES['package_file']['tmp_name']);
+        $obj->import_package($_FILES["package_file"]["tmp_name"]);
 
     }
     if(isset($_POST["emp_id_del"])){
@@ -823,61 +852,109 @@
         swal("", "ແພັກເກັດນີ້ໄດ້ເພີ່ມໄດ້ລາຍການເພີ່ມເຕີມແລ້ວ !", "info");
         </script>';
       }  
+      if(isset($_GET["list-register"])=="null"){
+        echo'<script type="text/javascript">
+        swal("", "ກະລຸນາເພີ່ມລາຍການແພັກເກັດກ່ອນ !", "info");
+        </script>';
+      }  
+      if(isset($_GET["regis"])=="success"){
+        echo'<script type="text/javascript">
+        swal("", "ລົງທະບຽນສຳເລັດ !", "success");
+        </script>';
+      }  
+      if(isset($_GET["barcode"])=="registed"){
+        echo'<script type="text/javascript">
+        swal("", "ບຣາໂຄດນີ້ໄດ້ທຳການລົງທະບຽນແລ້ວ !", "info");
+        </script>';
+      }  
     
 ?>
 <?php
     include ("../../header-footer/footer.php");
 ?>
 <script>
-$(document).ready(function() {
-    load_data_emp("%%", "%%", "0");
-    load_data_package("%%", "0");
+//     loadReg();
 
-    function load_data_emp(query, query2, page) {
-        $.ajax({
-            url: "fetch_emp.php",
-            method: "POST",
-            data: {
-                query: query,
-                query2: query2,
-                page: page
-            },
-            success: function(data) {
-                $('#result_data_emp').html(data);
-            }
-        });
-    }
-    $('#search_company').keyup(function() {
-        var page = "0";
-        var search_company = $(this).val();
-        var emp_search = $('#emp_search').val();
-        if (search_company != '') {
-            load_data_emp(search_company, emp_search, page);
-        } else {
-            load_data_emp('%%', emp_search, page);
-        }
-    });
-    $('#emp_search').keyup(function() {
-        var page = "0";
-        var emp_search = $(this).val();
-        var search_company = $('#search_company').val();
-        if (emp_search != '') {
-            load_data_emp(search_company, emp_search, page);
-        } else {
-            load_data_emp(search_company, "%%", page);
-        }
-    });
-    $(document).on('click', '.page-links_emp', function() {
-        var page_emp = this.id;
-        console.log(page_emp);
-        var emp_search = $('#emp_search').val();
-        var search_company = $('#search_company').val();
-        if (search_company != '' || emp_search != '') {
-            load_data_emp(search_company, emp_search, page_emp);
-        } else {
-            load_data_emp("%%", "%%", page_emp);
-        }
-    });
+// function loadReg() {
+//     $.ajax({
+//         url: "reg.php",
+//         success: function(result) {
+//             $('#reg_id').val(result); //insert text of test.php into your div
+//             setTimeout(function() {
+//                 loadReg(); //this will send request again and again;
+//             }, 10000);
+//         }
+//     });
+// }
+// loadQueue();
+
+// function loadQueue() {
+//     $.ajax({
+//         url: "queue.php",
+//         success: function(result) {
+//             $('.queue').val(result); //insert text of test.php into your div
+//             setTimeout(function() {
+//                 loadQueue(); //this will send request again and again;
+//             }, 30000);
+//             $('.queue').text(result); //insert text of test.php into your div
+//             setTimeout(function() {
+//                 loadQueue(); //this will send request again and again;
+//             }, 30000);
+//         }
+//     });
+// }
+
+</script>
+<script>
+// $(document).ready(function() {
+//     load_data_emp("%%", "%%", "0");
+//     load_data_package("%%", "0");
+
+//     function load_data_emp(query, query2, page) {
+//         $.ajax({
+//             url: "fetch_emp.php",
+//             method: "POST",
+//             data: {
+//                 query: query,
+//                 query2: query2,
+//                 page: page
+//             },
+//             success: function(data) {
+//                 $("#result_data_emp").html(data);
+//             }
+//         });
+//     }
+//     $('#search_company').keyup(function() {
+//         var page = "0";
+//         var search_company = $(this).val();
+//         var emp_search = $('#emp_search').val();
+//         if (search_company != '') {
+//             load_data_emp(search_company, emp_search, page);
+//         } else {
+//             load_data_emp('%%', emp_search, page);
+//         }
+//     });
+//     $('#emp_search').keyup(function() {
+//         var page = "0";
+//         var emp_search = $(this).val();
+//         var search_company = $('#search_company').val();
+//         if (emp_search != '') {
+//             load_data_emp(search_company, emp_search, page);
+//         } else {
+//             load_data_emp(search_company, "%%", page);
+//         }
+//     });
+//     $(document).on('click', '.page-links_emp', function() {
+//         var page_emp = this.id;
+//         console.log(page_emp);
+//         var emp_search = $('#emp_search').val();
+//         var search_company = $('#search_company').val();
+//         if (search_company != '' || emp_search != '') {
+//             load_data_emp(search_company, emp_search, page_emp);
+//         } else {
+//             load_data_emp("%%", "%%", page_emp);
+//         }
+//     });
 
 
 
@@ -888,39 +965,113 @@ $(document).ready(function() {
 
 
 
-    function load_data_package(query, page) {
-        $.ajax({
-            url: "fetch_package.php",
-            method: "POST",
-            data: {
-                query: query,
-                page: page
-            },
-            success: function(data) {
-                $('#result_data_package').html(data);
-            }
-        });
-    }
-    $('#search_package').keyup(function() {
-        var page = "0";
-        var search_package = $(this).val();
-        if (search_package != '') {
-            load_data_package(search_package, page);
-        } else {
-            load_data_package('%%', page);
-        }
-    });
-    $(document).on('click', '.page-links_package', function() {
-        var page_package = this.id;
-        var search_package = $('#search_package').val();
-        if (search_package != '') {
-            load_data_package(search_package, page_package);
-        } else {
-            load_data_package("%%", page_package);
-        }
-    });
+//     function load_data_package(query, page) {
+//         $.ajax({
+//             url: "fetch_package.php",
+//             method: "POST",
+//             data: {
+//                 query: query,
+//                 page: page
+//             },
+//             success: function(data) {
+//                 $('#result_data_package').html(data);
+//             }
+//         });
+//     }
+//     $('#search_package').keyup(function() {
+//         var page = "0";
+//         var search_package = $(this).val();
+//         if (search_package != '') {
+//             load_data_package(search_package, page);
+//         } else {
+//             load_data_package('%%', page);
+//         }
+//     });
+//     $(document).on('click', '.page-links_package', function() {
+//         var page_package = this.id;
+//         var search_package = $('#search_package').val();
+//         if (search_package != '') {
+//             load_data_package(search_package, page_package);
+//         } else {
+//             load_data_package("%%", page_package);
+//         }
+//     });
 
-});
+
+//     load_data_register("%%","%%","%%","0");
+//     function load_data_register(query, query2, dates, page) {
+//         $.ajax({
+//             url: "fetch_register.php",
+//             method: "POST",
+//             data: {
+//                 query: query,
+//                 query2: query2,
+//                 dates: dates,
+//                 page: page
+//             },
+//             success: function(data) {
+//                 $('#result_register').html(data);
+//             }
+//         });
+//     }
+//     $('#register_company').keyup(function() {
+//         var page = "0";
+//         var register_company = $(this).val();
+//         var register_search = $('#register_search').val();
+//         var register_date = $('#register_date').val();
+//         if (register_company != '') {
+//             load_data_register(register_company, register_search, register_date, page);
+//         } else {
+//             load_data_register("%%", register_search, register_date, page);
+//         }
+//     });
+//     $('#register_search').keyup(function() {
+//         var page = "0";
+//         var register_search = $(this).val();
+//         var register_company = $('#register_company').val();
+//         var register_date = $('#register_date').val();
+//         if (register_search != "") {
+//             load_data_register(register_company, register_search, register_date, page);
+//         } else {
+//             load_data_register(register_company, "%%", register_date, page);
+//         }
+//     });
+//     $(document).on('click', '#register_date', function() {
+//         var page = "0";
+//         var register_date = $(this).val();
+//         var register_company = $('#register_company').val();
+//         var register_search = $('#register_search').val();
+//         if (register_date != "") {
+//             load_data_register(register_company, register_search, register_date, page);
+//         } else {
+//             load_data_register(register_company, register_search, "%%", page);
+//         }
+//     });
+
+
+//     load_data_registerdetail("");
+//     function load_data_registerdetail(query) {
+//         $.ajax({
+//             url: "fetch_registerdetail.php",
+//             method: "POST",
+//             data: {
+//                 query: query
+//             },
+//             success: function(data) {
+//                 $('#result_registerdetail').html(data);
+//             }
+//         });
+//     }
+//     $('#detail').keyup(function() {
+//         var detail = $(this).val();
+//         if (detail != '') {
+//             load_data_registerdetail(detail);
+//         } else {
+//             load_data_registerdetail("");
+//         }
+//     });
+
+// });
 </script>
 <script>
 const myform = document.getElementById("formSaveEmp");
@@ -1115,4 +1266,114 @@ function checkInputs_form_package_add_list() {
     document.getElementById("form_package_add_list").action = "register";
     document.getElementById("form_package_add_list").submit();
 }
+
+const myform_form_clear_list = document.getElementById("form_clear_list");
+const clear_list = document.getElementById("clear_list");
+const btnclear_list = document.getElementById("btnclear_list");
+const load_clear_list = document.getElementById("load_clear_list");
+myform_form_clear_list.addEventListener('submit', (e) => {
+    e.preventDefault();
+    checkInputs_form_clear_list();
+});
+
+function checkInputs_form_clear_list() {
+    setloading(load_clear_list, btnclear_list);
+    document.getElementById("form_clear_list").action = "register";
+    document.getElementById("form_clear_list").submit();
+}
+
+const myform_form_clear_more = document.getElementById("form_clear_more");
+const clear_more = document.getElementById("clear_more");
+const btnclear_more = document.getElementById("btnclear_more");
+const load_clear_more = document.getElementById("load_clear_more");
+myform_form_clear_more.addEventListener('submit', (e) => {
+    e.preventDefault();
+    checkInputs_form_clear_more();
+});
+
+function checkInputs_form_clear_more() {
+    setloading(load_clear_more, btnclear_more);
+    document.getElementById("form_clear_more").action = "register";
+    document.getElementById("form_clear_more").submit();
+}
+
+
+const myform_form_del_list = document.getElementById("form_del_list");
+const del_list = document.getElementById("del_list");
+const btndel_list = document.getElementById("btndel_list");
+const load_del_list = document.getElementById("load_del_list");
+myform_form_del_list.addEventListener('submit', (e) => {
+    e.preventDefault();
+    checkInputs_form_del_list();
+});
+
+function checkInputs_form_del_list() {
+    setloading(load_del_list, btndel_list);
+    document.getElementById("form_del_list").action = "register";
+    document.getElementById("form_del_list").submit();
+}
+
+const myform_form_del_more = document.getElementById("form_del_more");
+const del_more = document.getElementById("del_more");
+const btndel_more = document.getElementById("btndel_more");
+const load_del_more = document.getElementById("load_del_more");
+myform_form_del_more.addEventListener('submit', (e) => {
+    e.preventDefault();
+    checkInputs_form_del_more();
+});
+
+function checkInputs_form_del_more() {
+    setloading(load_del_more, btndel_more);
+    document.getElementById("form_del_more").action = "register";
+    document.getElementById("form_del_more").submit();
+}
+
+
+
+const myform_form_register = document.getElementById("form_register");
+const queue = document.getElementById("queue");
+const reg_id = document.getElementById("reg_id");
+const register_barcode = document.getElementById("register_barcode");
+const btnRegister = document.getElementById("btnRegister");
+const load_Regiser = document.getElementById("load_Regiser");
+myform_form_register.addEventListener('submit', (e) => {
+    e.preventDefault();
+    checkInputs_form_register();
+});
+
+function checkInputs_form_register() {
+    setloading(load_Regiser, btnRegister);
+    document.getElementById("form_register").action = "register";
+    document.getElementById("form_register").submit();
+}
+</script>
+
+
+
+
+
+<script>
+$('.btnDelete_List').on('click', function() {
+    $('#exampleModalDeleteList').modal('show');
+    $tr = $(this).closest('tr');
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+    console.log(data);
+
+    $('#del_more').val(data[2]);
+});
+
+$('.btnDelete_com').on('click', function() {
+    $('#exampleModalDelSTBPackage').modal('show');
+    $tr = $(this).closest('tr');
+    var data = $tr.children("td").map(function() {
+        return $(this).text();
+    }).get();
+
+    console.log(data);
+
+    $('#del_list').val(data[2]);
+});
 </script>

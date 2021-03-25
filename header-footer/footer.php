@@ -6,7 +6,6 @@
     <strong>Copyright &copy; 2020 </strong>
     All rights reserved.
 </footer>
-
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -47,6 +46,7 @@ $.widget.bridge('uibutton', $.ui.button)
 <script src="<?php echo $path ?>dist/js/adminlte.js"></script>
 <script src="<?php echo $path ?>dist/js/style.js"></script>
 <script src="<?php echo $path ?>dist/js/jquery.highlight.js"></script>
+<script src="fetch.js"></script>
 <!-- <script src="<?php echo $path ?>dist/js/modal.js" type="text/javascript"></script> -->
 
 <script>

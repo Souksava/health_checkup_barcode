@@ -14,103 +14,86 @@
   else{
     $page = 0;
  }
- if(isset($_POST["query"]) || isset($_POST['query2']))
+ if(isset($_POST["query"]) || isset($_POST["query2"]) || isset($_POST["dates"]))
 {
    $highlight = $_POST['query'];
    $highlight2 = $_POST['query2'];
-   $obj->select_employee_limit("%".$_POST['query']."%","%".$_POST['query2']."%",$page);
+   $highlight3 = $_POST['dates'];
+   $obj->select_register_limit("%".$_POST['query']."%","%".$_POST['query2']."%", "%".$_POST['dates']."%",$page);
 }
 else
 {
-   $obj->select_employee_limit("%%", "%%",$page);
+   $obj->select_register_limit("%%", "%%", "%%", $page);
 }
 
-if(mysqli_num_rows($result_emp) > 0)
+if(mysqli_num_rows($result_register_limit) > 0)
 {
  $output .= '
   <div class="table-responsive">
-  <table class="table-bordered" style="width: 3000px;text-align: center;">
+  <table class="table-bordered" style="width: 2000px;text-align: center;">
     <tr style="font-size: 18px;">
-        <th style="width: 70px;">ເຄື່ອງມື</th>
-        <th style="width: 50px;">N0.</th>
-        <th style="width: 150px;">ບຣາໂຄດ</th>
+        <th style="width: 90px;">ເຄື່ອງມື</th>
+        <th style="width: 70px;">No.</th>
+        <th style="width: 150px;">Barcode</th>
         <th style="width: 150px;">ລະຫັດພະນັກງານ</th>
-        <th style="width: 200px;">ຊື່</th>
+        <th style="width: 150px;">ຊື່</th>
         <th style="width: 150px;">ນາມສະກຸນ</th>
-        <th style="width: 120px;">ວັນເດືອນປີເກີດ</th>
-        <th style="width: 50px;">ອາຍຸ</th>
-        <th style="width: 70px;">ເພດ</th>
-        <th style="width: 280px;">ບໍລິສັດ</th>
-        <th style="width: 250px;">ສາຂາ</th>
-        <th style="width: 300px;">ພະແນກ</th>
-        <th style="width: 180px;">ເບີໂທລະສັບ</th>
-        <th style="width: 130px;">ສະຖານະຄອບຄົວ</th>
-        <th style="width: 100px;">ສັນຊາດ</th>
-        <th style="width: 120px;">ຊົນເຜົ່າ</th>
-        <th style="width: 100px;">ສາສະໜາ</th>
-        <th style="width: 150px;">ອາຊີບ</th>
-        <th style="width: 150px;">ເຮືອກເລກທີ</th>
-        <th style="width: 180px;">ບ້ານຢູ່ປັດຈຸບັນ</th>
-        <th style="width: 180px;">ເມືອງ</th>
-        <th style="width: 180px;">ແຂວງ</th>
+        <th style="width: 80px;">ລຳດັບຄິວ</th>
+        <th style="width: 70px;">ອາຍຸ</th>
+        <th style="width: 300px;">ບໍລິສັດ</th>
+        <th style="width: 80px;">Year</th>
+        <th style="width: 100px;">ວັນທີລົງທະບຽນ</th>
+        <th style="width: 100px;">ເວລາ</th>
     </tr>
  ';
  $no_ = 0;
- while($row = mysqli_fetch_array($result_emp))
+ while($row = mysqli_fetch_array($result_register_limit))
  {
 $no_ += 1;
   $output .= '
     <tr>
+        <td style="display: none;">'.$row["reg_id"].'</td>
         <td>
-            <a href="#" data-toggle="modal" data-target="#exampleModalRegisterEmp"
-                class="fas fa-registered toolcolor btnAddEmp"></a>&nbsp; &nbsp;
-            <a href="#" data-toggle="modal" data-target="#exampleModalDeleteEmp"
-                class="fa fa-trash toolcolor btnDel_Emp"></a>
+        <a href="#" data-toggle="modal" data-target="#exampleModalPrint"
+            class="fas fa-print toolcolor btnUpdate_cust"></a>&nbsp; &nbsp;
+        <a href="#" data-toggle="modal" class="fas fa-info toolcolor btndetail"></a>&nbsp; &nbsp;
+        <a href="#" data-toggle="modal" data-target="#exampleModalDeleteRegiter"
+            class="fa fa-trash toolcolor btnDelete_register"></a>
         </td>
         <td>'.$no_.'</td>
         <td>'.$row["barcode"].'</td>
         <td>'.$row["emp_id"].'</td>
         <td>'.$row["emp_name"].'</td>
         <td>'.$row["surname"].'</td>
-        <td>'.date("d/m/Y",strtotime($row["dob"])).'</td>
+        <td>'.$row["queue"].'</td>
         <td>'.$row["age"].'</td>
-        <td>'.$row["gender"].'</td>
         <td>'.$row["company"].'</td>
-        <td>'.$row["branch"].'</td>
-        <td>'.$row["department"].'</td>
-        <td>'.$row["tel"].'</td>
-        <td>'.$row["family_stt"].'</td>
-        <td>'.$row["nation"].'</td>
-        <td>'.$row["ethnic"].'</td>
-        <td>'.$row["religion"].'</td>
-        <td>'.$row["job"].'</td>
-        <td>'.$row["house_no"].'</td>
-        <td>'.$row["village"].'</td>
-        <td>'.$row["district"].'</td>
-        <td>'.$row["province"].'</td>
+        <td>'.$row["year"].'</td>
+        <td>'.$row["date"].'</td>
+        <td>'.$row["time"].'</td>
     </tr>
   ';
  }
- mysqli_free_result($result_emp);  
+ mysqli_free_result($result_register_limit);  
  mysqli_next_result($conn);
  $output .='
    </table>
 </div>
  ';
  echo $output;
- if(isset($_POST["query"]) || isset($_POST['query2']))
+ if(isset($_POST["query"]) || isset($_POST["query2"]) || isset($_POST["dates"]))
  {
-    $obj->count_emp("%".$_POST['query']."%","%".$_POST['query2']."%");
+    $obj->select_register("%".$_POST['query']."%","%".$_POST['query2']."%","%".$_POST["dates"]."%");
  }
  else
  {
-    $obj->count_emp("%%","%%");
+    $obj->select_register("%%","%%","%%");
  }
 
- $count = mysqli_num_rows($resultemp_count);
- mysqli_free_result($resultemp_count);  
+ $count = mysqli_num_rows($result_register);
+ mysqli_free_result($result_register);  
  mysqli_next_result($conn);
- $a = ceil($count/30);
+ $a = ceil($count/15);
  if(isset($_POST['page'])){
     if($_POST['page'] > 1){
        $previous = $_POST['page'] - 1;
@@ -195,26 +178,27 @@ else
 <script type="text/javascript">
 var highlight = "<?php echo $_POST['query']; ?>";
 var highlight2 = "<?php echo $_POST['query2']; ?>";
-$('.result_data_emp').highlight([highlight]);
-$('.result_data_emp').highlight([highlight2]);
-$('.btnDel_Emp').on('click', function() {
-    $('#exampleModalDeleteEmp').modal('show');
-      $tr = $(this).closest('tr');
-      var data = $tr.children("td").map(function() {
-         return $(this).text();
-      }).get();
-
-      console.log(data);
-
-      $('#emp_id_del').val(data[2]);
-   });
-   $('.btnAddEmp').on('click', function() {
-        $('#exampleModalRegisterEmp').modal('show');
+// var highlight3 = "<?php echo $_POST['dates']; ?>";
+$('.result_register').highlight([highlight]);
+$('.result_register').highlight([highlight2]);
+// $('.result_register').highlight([highlight3]);
+$('.btndetail').on('click', function() {
         $tr = $(this).closest('tr');
         var data = $tr.children("td").map(function() {
             return $(this).text();
         }).get();
+
         console.log(data);
-        $('#register_barcode').val(data[2]);
-    });
+        $('#detail').val(data[0]);
+});
+
+//    $('.btnAddEmp').on('click', function() {
+//         $('#exampleModalRegisterEmp').modal('show');
+//         $tr = $(this).closest('tr');
+//         var data = $tr.children("td").map(function() {
+//             return $(this).text();
+//         }).get();
+//         console.log(data);
+//         $('#register_barcode').val(data[2]);
+//     });
 </script>

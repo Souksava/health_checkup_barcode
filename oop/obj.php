@@ -10,6 +10,7 @@ include (''.$path.'PHPExcel/Classes/PHPExcel/IOFactory.php');
 date_default_timezone_set("Asia/Bangkok");
 $datenow = time();
 $Date = date("Y-m-d",$datenow);
+$Year = date("Y",$datenow);
 $Date_barcode = date("dmy",$datenow);
 $Time = date("H:i:s",$datenow);
 $border = 5;//กำหนดความหน้าของเส้น Barcode
@@ -266,7 +267,167 @@ class obj{
             echo"window.location.href='register';";
             echo"</script>";
     }
-    
+    public static function clear_list(){
+        setcookie("package_list","",time() - 3600);//ຕັ້ງຄ່າໃຫ້ຄຸກກີ້ໃຫ້ເປັນຄ່າວ່າງ
+        echo"<script>";
+        echo"window.location.href='register';";
+        echo"</script>";
+    }
+    public static function clear_more(){
+        setcookie("package_more","",time() - 3600);//ຕັ້ງຄ່າໃຫ້ຄຸກກີ້ໃຫ້ເປັນຄ່າວ່າງ
+        echo"<script>";
+        echo"window.location.href='register';";
+        echo"</script>";
+    }
+    public static function del_list($id){
+        $cookie_data = $_COOKIE['package_list'];//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນ String
+        $cart_data = json_decode($cookie_data, true);//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນອາເລໃນຮູບແບບ json
+        foreach($cart_data as $keys => $values){//ຊອກຫາຄ່າໄອດີຢູ່ໃນອາເລ
+            if($cart_data[$keys]['pack_id'] == $id){//ຖ້າໄອດີຕົງກັນໃຫ້ລົບຂໍ້ມູນ
+                unset($cart_data[$keys]);//ລົບຂໍ້ມູນຢູ່ຄຸກກີ້ໝົດແຖວທີ່ມີໄອດີຕົງກັນ
+                $item_data = json_encode($cart_data);//ໃຫ້ຈົບການສ້າງອາເລໃນຮູບແບບ json
+                setcookie('package_list',$item_data,time() + (86400 * 30));//ຕັ້ງເວລາຄຸກກີ້
+                foreach($cart_data as $keys => $values){}
+                if(!$cart_data[$keys]){
+                    setcookie("package_list","",time() - 3600);//ຕັ້ງຄ່າໃຫ້ຄຸກກີ້ໃຫ້ເປັນຄ່າວ່າງ
+                }
+                echo"<script>";
+                echo"window.location.href='register';";
+                echo"</script>";
+            }
+        }
+    }
+    public static function del_more($id){
+        $cookie_data = $_COOKIE['package_more'];//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນ String
+        $cart_data = json_decode($cookie_data, true);//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນອາເລໃນຮູບແບບ json
+        foreach($cart_data as $keys => $values){//ຊອກຫາຄ່າໄອດີຢູ່ໃນອາເລ
+            if($cart_data[$keys]['pack_id'] == $id){//ຖ້າໄອດີຕົງກັນໃຫ້ລົບຂໍ້ມູນ
+                unset($cart_data[$keys]);//ລົບຂໍ້ມູນຢູ່ຄຸກກີ້ໝົດແຖວທີ່ມີໄອດີຕົງກັນ
+                $item_data = json_encode($cart_data);//ໃຫ້ຈົບການສ້າງອາເລໃນຮູບແບບ json
+                setcookie('package_more',$item_data,time() + (86400 * 30));//ຕັ້ງເວລາຄຸກກີ້
+                foreach($cart_data as $keys => $values){}
+                if(!$cart_data[$keys]){
+                    setcookie("package_more","",time() - 3600);//ຕັ້ງຄ່າໃຫ້ຄຸກກີ້ໃຫ້ເປັນຄ່າວ່າງ
+                }
+                echo"<script>";
+                echo"window.location.href='register';";
+                echo"</script>";
+            }
+        }
+    }
+    public static function get_queue(){
+        global $Date;
+        global $conn;
+        global $queue;
+        $result = mysqli_query($conn,"call get_queue('$Date');");
+        if(mysqli_num_rows($result) > 0){
+            $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+            $queue = $row['queue'] + 1;
+        }
+        else{
+            $queue = 1;
+        }
+        mysqli_free_result($result);  
+        mysqli_next_result($conn);
+    }
+    public static function get_reg(){
+        global $conn;
+        global $reg_id;
+        $reg_id = "";
+        $result_reg = mysqli_query($conn,"call get_reg;");
+        if(mysqli_num_rows($result_reg) > 0){
+            $row_reg = mysqli_fetch_array($result_reg, MYSQLI_ASSOC);
+            $reg_id = $row_reg['reg_id'] + 1;
+        }
+        else{
+            $reg_id = 1;
+        }
+        mysqli_free_result($result_reg);  
+        mysqli_next_result($conn);
+
+    }
+    public static function register($reg_id,$queue,$barcode){
+        global $conn;
+        global $Year;
+        global $Date;
+        global $Time;
+        $check_barcode = mysqli_query($conn,"select * from register where barcode='$barcode' and year='$Year';");
+        if(mysqli_num_rows($check_barcode) > 0){
+            echo"<script>";
+            echo"window.location.href='register?barcode=registed';";
+            echo"</script>";
+        }
+        else{
+            if(isset($_COOKIE['package_list'])){//ກວດສອບວ່າຄຸກກີ້ package_list ນັ້ນມີຄ່າຫຼືບໍ່
+                $cookie_data = $_COOKIE['package_list'];//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນ String
+                $cart_data = json_decode($cookie_data, true);//Decode ຄ່າຄຸກກີ້ອອກມາໃຫ້ອ່ານຄ່າເປັນ Array ໄດ້ໃນຮູບແບບ json
+                if(!empty($cart_data)){
+                    $register = mysqli_query($conn,"call insert_register('$reg_id','$barcode','$Time','$queue','$Year','$Date')");
+                    if(!$register){
+                        echo"<script>";
+                        echo"window.location.href='register?regis=fail';";
+                        echo"</script>";
+                    }
+                    else{
+                        foreach($cart_data as $row){
+                            $pack_id = $row['pack_id'];
+                            $registerdetail = mysqli_query($conn,"call insert_registerdetail('$reg_id','$pack_id');");
+                            // mysqli_free_result($registerdetail);  
+                            // mysqli_next_result($conn);
+                    
+                        }
+                        if(isset($_COOKIE['package_more'])){//ກວດສອບວ່າຄຸກກີ້ package_more ນັ້ນມີຄ່າຫຼືບໍ່
+                            $cookie_data2 = $_COOKIE['package_more'];//ຕັ້ງຄ່າຄຸກກີ້ໃຫ້ເປັນ String
+                            $cart_data2 = json_decode($cookie_data2, true);//Decode ຄ່າຄຸກກີ້ອອກມາໃຫ້ອ່ານຄ່າເປັນ Array ໄດ້ໃນຮູບແບບ json
+                            if(!empty($cart_data2)){
+                                foreach($cart_data2 as $row2){
+                                    $pack_id2 = $row2['pack_id'];
+                                    $registerdetail2 = mysqli_query($conn,"call insert_registerdetail('$reg_id','$pack_id2');");
+                                    mysqli_free_result($registerdetail2);  
+                                    mysqli_next_result($conn);
+                                }
+                                setcookie("package_more","",time() - 3600);//ຕັ້ງຄ່າໃຫ້ຄຸກກີ້ໃຫ້ເປັນຄ່າວ່າງ
+                            }
+                            else{
+                                setcookie("package_more","",time() - 3600);//ຕັ້ງຄ່າໃຫ້ຄຸກກີ້ໃຫ້ເປັນຄ່າວ່າງ
+                            }
+                        }
+                        else{
+                            setcookie("package_more","",time() - 3600);//ຕັ້ງຄ່າໃຫ້ຄຸກກີ້ໃຫ້ເປັນຄ່າວ່າງ
+                        }
+                        echo"<script>";
+                        echo"window.location.href='register?regis=success';";
+                        echo"</script>";
+                    }
+                }
+                else{
+                    echo"<script>";
+                    echo"window.location.href='register?list-register=null';";
+                    echo"</script>";
+                }
+            }
+            else{
+                echo"<script>";
+                echo"window.location.href='register?list-register=null';";
+                echo"</script>";
+            }
+        }
+    }
+    public static function select_register_limit($company,$name,$dates,$page){
+        global $conn;
+        global $result_register_limit;
+        $result_register_limit = mysqli_query($conn,"call select_register_limit('$company','$name','$dates','$page')");
+    }
+    public static function select_register($company,$name,$dates){
+        global $conn;
+        global $result_register;
+        $result_register = mysqli_query($conn,"call select_register('$company','$name','$dates')");
+    }
+    public static function select_registerdetail($reg_id){
+        global $conn;
+        global $result_registerdetail;
+        $result_registerdetail = mysqli_query($conn,"call select_registerdetail('$reg_id')");
+    }
 }
 $obj = new obj();
 ?>

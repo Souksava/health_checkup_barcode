@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="<?php echo $path ?>plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?php echo $path ?>plugins/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo $path ?>header-footer/loader.css">
@@ -46,6 +47,21 @@
     }
     if(isset($_POST["package_add_list"])){
         $obj->cookie_list($_POST["package_add_list"],$_POST["package_add_list_des"]);
+    }
+    if(isset($_POST["clear_list"])){
+        $obj->clear_list();
+    }
+    if(isset($_POST["clear_more"])){
+        $obj->clear_more();
+    }
+    if(isset($_POST["del_list"])){
+        $obj->del_list($_POST["del_list"]);
+    }
+    if(isset($_POST["del_more"])){
+        $obj->del_more($_POST["del_more"]);
+    }
+    if(isset($_POST["reg_id"])){
+        $obj->register($_POST["reg_id"],$_POST["queue"],$_POST["register_barcode"]);
     }
 ?>
     <div class="wrapper">
@@ -117,7 +133,7 @@
                             <i class="nav-icon fas fa-copy"></i>
                             <p>
                                 ລົງທະບຽນ
-                                <i class="fas"></i>
+                               
                             </p>
                         </a>
                     </li>
