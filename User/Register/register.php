@@ -1357,15 +1357,14 @@ $(document).ready(function() {
     }
     $('#register_company').keyup(function() {
         var page = "0";
-        var register_date = "";
         var register_company = $(this).val();
         var register_search = $('#register_search').val();
-      
-        if(!register_date){
-            var register_date = formatDate(new Date($('#register_date').val()));
+        var valueDate = $('#register_date').val();
+        if(!Date.parse(valueDate)){
+            var register_date = "";
         }
         else{
-            register_date = null;
+            var register_date = formatDate(new Date($('#register_date').val()));
         }
         console.log(register_date);
         if (register_company != '') {
@@ -1376,14 +1375,14 @@ $(document).ready(function() {
     });
     $('#register_search').keyup(function() {
         var page = "0";
-        var register_date = "";
         var register_search = $(this).val();
         var register_company = $('#register_company').val();
-        if(!register_date){
-            var register_date = formatDate(new Date($('#register_date').val()));
+        var valueDate = $('#register_date').val();
+        if(!Date.parse(valueDate)){
+            var register_date = "";
         }
         else{
-            var register_date = null;
+            var register_date = formatDate(new Date($('#register_date').val()));
         }
         console.log(register_date);
         if (register_search != "") {
