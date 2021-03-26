@@ -5,7 +5,6 @@
   $session_path = "../../";
   include ("../../header-footer/header.php");
 ?>
-<!-- Modal -->
 <!-- employee -->
 <form action="register" method="POST" id="import_emp" enctype="multipart/form-data">
     <div class="modal fade" id="exampleModalimpEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -63,7 +62,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
-                    <button type="submit" name="btnRegister" id="btnRegister" class="btn btn-outline-primary" onclick="">
+                    <button type="submit" name="btnRegister" id="btnRegister" class="btn btn-outline-primary"
+                        onclick="">
                         ລົງທະບຽນ
                         <span class="" id="load_Regiser"></span>
                     </button>
@@ -412,55 +412,59 @@
 </div>
 <!-- End Company Package -->
 <!-- Register -->
-
-<div class="modal fade" id="exampleModalDeleteRegiter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ລົບລາຍການລົງທະບຽນ</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p align="center">ທ່ານຕ້ອງການລົບລາຍການລົງທະບຽນ ຫຼື ບໍ່ ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
-                <button type="submit" name="Com_Update" id="Com_Update" class="btn btn-outline-danger" onclick="">
-                    ລົບ
-                    <span class="" id="load_save"></span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="exampleModalPrint" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ພິມບາໂຄດ</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p align="center">ທ່ານຕ້ອງການພິມບຣາໂຄດ ຫຼື ບໍ່ ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
-                <button type="submit" name="Com_Update" id="Com_Update" class="btn btn-outline-primary" onclick="">
-                    ພິມບຣາໂຄດ
-                    <span class="" id="load_save"></span>
-                </button>
+<form action="register" method="POST" id="form_delete_register">
+    <div class="modal fade" id="exampleModalDeleteRegiter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ລົບລາຍການລົງທະບຽນ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p align="center">ທ່ານຕ້ອງການລົບລາຍການລົງທະບຽນ ຫຼື ບໍ່ ?</p>
+                    <input type="hidden" name="delete_register" id="delete_register">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
+                    <button type="submit" name="btndelete_register" id="btndelete_register"
+                        class="btn btn-outline-danger" onclick="">
+                        ລົບ
+                        <span class="" id="load_delete_register"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-
+</form>
+<form action="printbarcode" method="POST" target="_blank">
+    <div class="modal fade" id="exampleModalPrint" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ພິມບາໂຄດ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p align="center">ທ່ານຕ້ອງການພິມບຣາໂຄດ ຫຼື ບໍ່ ?</p>
+                    <input type="hidden" name="print_barcode" id="print_barcode">
+                    <input type="hidden" name="barcode_id" id="barcode_id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">ຍົກເລີກ</button>
+                    <button type="submit" name="btnPrint" id="btnPrint" class="btn btn-outline-primary" onclick="">
+                        ພິມບຣາໂຄດ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 <!-- End Register -->
 <!-- List -->
 <form action="register" method="POST" id="form_del_more">
@@ -596,7 +600,11 @@
                         ເພີ່ມ ພ/ງ
                     </button>
                 </div>
-                <div id="result_data_emp" class="result_data_emp"></div>
+                <div id="result_data_emp" class="result_data_emp">
+                    <?php
+                    include ($path."header-footer/loading.php");
+                ?>
+                </div>
             </div>
         </div>
     </div>
@@ -615,7 +623,11 @@
             <div class="card-body">
                 <input type="text" name="search_package" id="search_package" class="form-control"
                     placeholder="ຄົ້ນຫາ"><br>
-                <div id="result_data_package" class="result_data_package"></div>
+                <div id="result_data_package" class="result_data_package">
+                    <?php
+                    include ($path."header-footer/loading.php");
+                ?>
+                </div>
             </div>
         </div>
     </div>
@@ -755,14 +767,19 @@
             </div>
             <div class="card-body">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="register_company" placeholder="ບໍລິສັດ" aria-label="Recipient's username"
-                        aria-describedby="button-addon2">
-                    <input type="text" class="form-control" id="register_search" placeholder="ລະຫັດ ພ/ງ, ຊື່, ອາຍຸ, ບໍລິສັດ"
+                    <input type="text" class="form-control" id="register_company" placeholder="ບໍລິສັດ"
                         aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <input type="text" class="form-control" id="register_search"
+                        placeholder="ລະຫັດ ພ/ງ, ຊື່, ອາຍຸ, ບໍລິສັດ" aria-label="Recipient's username"
+                        aria-describedby="button-addon2">
                     <input type="date" class="form-control" id="register_date" aria-label="Recipient's username"
                         aria-describedby="button-addon2">
                 </div>
-                <div id="result_register" class="result_register"></div>
+                <div id="result_register" class="result_register">
+                    <?php
+                        include ($path."header-footer/loading.php");
+                    ?>
+                </div>
             </div>
         </div>
     </div>
@@ -773,7 +790,11 @@
                 <input type="hidden" name="detail" class="detail" id="detail">
             </div>
             <div class="card-body">
-            <div id="result_registerdetail"></div>
+                <div id="result_registerdetail">
+                    <?php
+                        include ($path."header-footer/loading.php");
+                    ?>
+                </div>
             </div>
         </div>
     </div>
@@ -797,7 +818,6 @@
     }
     if(isset($_POST["upload_emp_id"])){
         $obj->import_emp($_FILES["emp_file"]["tmp_name"]);
-
     }
     if(isset($_POST["upload_pack_id"])){
         $obj->import_package($_FILES["package_file"]["tmp_name"]);
@@ -816,6 +836,9 @@
     }
     if(isset($_POST["package_add_list"])){
         $obj->cookie_list($_POST["package_add_more"],$_POST["package_add_more_des"]);
+    }
+    if(isset($_POST["delete_register"])){
+        $obj->del_register($_POST["delete_register"]);
     }
        if(isset($_GET["import"])=="success"){
         echo'<script type="text/javascript">
@@ -873,7 +896,22 @@
     include ("../../header-footer/footer.php");
 ?>
 <script>
-    loadReg();
+        function formatDate(date) {
+            var d = new Date(date),
+                month = "" + (d.getMonth() + 1),
+                day = "" + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) 
+                month = "0" + month;
+            if (day.length < 2) 
+                day = "0" + day;
+
+            return [year, month, day].join("-");
+        }   
+</script>
+<script>
+loadReg();
 
 function loadReg() {
     $.ajax({
@@ -882,7 +920,7 @@ function loadReg() {
             $('#reg_id').val(result); //insert text of test.php into your div
             setTimeout(function() {
                 loadReg(); //this will send request again and again;
-            }, 1000);
+            }, 2000);
         }
     });
 }
@@ -895,183 +933,25 @@ function loadQueue() {
             $('.queue').val(result); //insert text of test.php into your div
             setTimeout(function() {
                 loadQueue(); //this will send request again and again;
-            }, 1000);
-            $('.queue').text(result); //insert text of test.php into your div
-            setTimeout(function() {
-                loadQueue(); //this will send request again and again;
-            }, 1000);
+            }, 2000);
         }
     });
 }
+loadQueue2();
 
+function loadQueue2() {
+    $.ajax({
+        url: "queue.php",
+        success: function(result) {
+            $('.queue').text(result); //insert text of test.php into your div
+            setTimeout(function() {
+                loadQueue2(); //this will send request again and again;
+            }, 2000);
+        }
+    });
+}
 </script>
-<script>
-// $(document).ready(function() {
-//     load_data_emp("%%", "%%", "0");
-//     load_data_package("%%", "0");
-
-//     function load_data_emp(query, query2, page) {
-//         $.ajax({
-//             url: "fetch_emp.php",
-//             method: "POST",
-//             data: {
-//                 query: query,
-//                 query2: query2,
-//                 page: page
-//             },
-//             success: function(data) {
-//                 $("#result_data_emp").html(data);
-//             }
-//         });
-//     }
-//     $('#search_company').keyup(function() {
-//         var page = "0";
-//         var search_company = $(this).val();
-//         var emp_search = $('#emp_search').val();
-//         if (search_company != '') {
-//             load_data_emp(search_company, emp_search, page);
-//         } else {
-//             load_data_emp('%%', emp_search, page);
-//         }
-//     });
-//     $('#emp_search').keyup(function() {
-//         var page = "0";
-//         var emp_search = $(this).val();
-//         var search_company = $('#search_company').val();
-//         if (emp_search != '') {
-//             load_data_emp(search_company, emp_search, page);
-//         } else {
-//             load_data_emp(search_company, "%%", page);
-//         }
-//     });
-//     $(document).on('click', '.page-links_emp', function() {
-//         var page_emp = this.id;
-//         console.log(page_emp);
-//         var emp_search = $('#emp_search').val();
-//         var search_company = $('#search_company').val();
-//         if (search_company != '' || emp_search != '') {
-//             load_data_emp(search_company, emp_search, page_emp);
-//         } else {
-//             load_data_emp("%%", "%%", page_emp);
-//         }
-//     });
-
-
-
-
-
-
-
-
-
-
-//     function load_data_package(query, page) {
-//         $.ajax({
-//             url: "fetch_package.php",
-//             method: "POST",
-//             data: {
-//                 query: query,
-//                 page: page
-//             },
-//             success: function(data) {
-//                 $('#result_data_package').html(data);
-//             }
-//         });
-//     }
-//     $('#search_package').keyup(function() {
-//         var page = "0";
-//         var search_package = $(this).val();
-//         if (search_package != '') {
-//             load_data_package(search_package, page);
-//         } else {
-//             load_data_package('%%', page);
-//         }
-//     });
-//     $(document).on('click', '.page-links_package', function() {
-//         var page_package = this.id;
-//         var search_package = $('#search_package').val();
-//         if (search_package != '') {
-//             load_data_package(search_package, page_package);
-//         } else {
-//             load_data_package("%%", page_package);
-//         }
-//     });
-
-
-//     load_data_register("%%","%%","%%","0");
-//     function load_data_register(query, query2, dates, page) {
-//         $.ajax({
-//             url: "fetch_register.php",
-//             method: "POST",
-//             data: {
-//                 query: query,
-//                 query2: query2,
-//                 dates: dates,
-//                 page: page
-//             },
-//             success: function(data) {
-//                 $('#result_register').html(data);
-//             }
-//         });
-//     }
-//     $('#register_company').keyup(function() {
-//         var page = "0";
-//         var register_company = $(this).val();
-//         var register_search = $('#register_search').val();
-//         var register_date = $('#register_date').val();
-//         if (register_company != '') {
-//             load_data_register(register_company, register_search, register_date, page);
-//         } else {
-//             load_data_register("%%", register_search, register_date, page);
-//         }
-//     });
-//     $('#register_search').keyup(function() {
-//         var page = "0";
-//         var register_search = $(this).val();
-//         var register_company = $('#register_company').val();
-//         var register_date = $('#register_date').val();
-//         if (register_search != "") {
-//             load_data_register(register_company, register_search, register_date, page);
-//         } else {
-//             load_data_register(register_company, "%%", register_date, page);
-//         }
-//     });
-//     $(document).on('click', '#register_date', function() {
-//         var page = "0";
-//         var register_date = $(this).val();
-//         var register_company = $('#register_company').val();
-//         var register_search = $('#register_search').val();
-//         if (register_date != "") {
-//             load_data_register(register_company, register_search, register_date, page);
-//         } else {
-//             load_data_register(register_company, register_search, "%%", page);
-//         }
-//     });
-
-
-//     load_data_registerdetail("");
-//     function load_data_registerdetail(query) {
-//         $.ajax({
-//             url: "fetch_registerdetail.php",
-//             method: "POST",
-//             data: {
-//                 query: query
-//             },
-//             success: function(data) {
-//                 $('#result_registerdetail').html(data);
-//             }
-//         });
-//     }
-//     $('#detail').keyup(function() {
-//         var detail = $(this).val();
-//         if (detail != '') {
-//             load_data_registerdetail(detail);
-//         } else {
-//             load_data_registerdetail("");
-//         }
-//     });
-
-// });
+<script src="fetch.js"></script>
 </script>
 <script>
 const myform = document.getElementById("formSaveEmp");
@@ -1346,9 +1226,233 @@ function checkInputs_form_register() {
     document.getElementById("form_register").action = "register";
     document.getElementById("form_register").submit();
 }
+
+
+const myform_form_delete_register = document.getElementById("form_delete_register");
+const delete_register = document.getElementById("delete_register");
+const btndelete_register = document.getElementById("btndelete_register");
+const load_delete_register = document.getElementById("load_delete_register");
+myform_form_delete_register.addEventListener('submit', (e) => {
+    e.preventDefault();
+    checkInputs_form_delete_register();
+});
+
+function checkInputs_form_delete_register() {
+    setloading(load_delete_register, btndelete_register);
+    document.getElementById("form_delete_register").action = "register";
+    document.getElementById("form_delete_register").submit();
+}
 </script>
 
+<script>
 
+$(document).ready(function() {
+    load_data_emp("%%", "%%", "0");
+    load_data_package("%%", "0");
+
+    function load_data_emp(query, query2, page) {
+        $.ajax({
+            url: "fetch_emp.php",
+            method: "POST",
+            data: {
+                query: query,
+                query2: query2,
+                page: page
+            },
+            success: function(data) {
+                $("#result_data_emp").html(data);
+            }
+        });
+    }
+    $('#search_company').keyup(function() {
+        var page = "0";
+        var search_company = $(this).val();
+        var emp_search = $('#emp_search').val();
+        if (search_company != '') {
+            load_data_emp(search_company, emp_search, page);
+        } else {
+            load_data_emp('%%', emp_search, page);
+        }
+    });
+    $('#emp_search').keyup(function() {
+        var page = "0";
+        var emp_search = $(this).val();
+        var search_company = $('#search_company').val();
+        if (emp_search != '') {
+            load_data_emp(search_company, emp_search, page);
+        } else {
+            load_data_emp(search_company, "%%", page);
+        }
+    });
+    $(document).on('click', '.page-links_emp', function() {
+        var page_emp = this.id;
+        console.log(page_emp);
+        var emp_search = $('#emp_search').val();
+        var search_company = $('#search_company').val();
+        if (search_company != '' || emp_search != '') {
+            load_data_emp(search_company, emp_search, page_emp);
+        } else {
+            load_data_emp("%%", "%%", page_emp);
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+    function load_data_package(query, page) {
+        $.ajax({
+            url: "fetch_package.php",
+            method: "POST",
+            data: {
+                query: query,
+                page: page
+            },
+            success: function(data) {
+                $('#result_data_package').html(data);
+            }
+        });
+    }
+    $('#search_package').keyup(function() {
+        var page = "0";
+        var search_package = $(this).val();
+        if (search_package != '') {
+            load_data_package(search_package, page);
+        } else {
+            load_data_package('%%', page);
+        }
+    });
+    $(document).on('click', '.page-links_package', function() {
+        var page_package = this.id;
+        var search_package = $('#search_package').val();
+        if (search_package != '') {
+            load_data_package(search_package, page_package);
+        } else {
+            load_data_package("%%", page_package);
+        }
+    });
+
+
+    load_data_register("%%", "%%", "%%", "0");
+
+    function load_data_register(query, query2, dates, page) {
+        $.ajax({
+            url: "fetch_register.php",
+            method: "POST",
+            data: {
+                query: query,
+                query2: query2,
+                dates: dates,
+                page: page
+            },
+            success: function(data) {
+                $('#result_register').html(data);
+            }
+        });
+    }
+    $('#register_company').keyup(function() {
+        var page = "0";
+        var register_date = "";
+        var register_company = $(this).val();
+        var register_search = $('#register_search').val();
+      
+        if(!register_date){
+            var register_date = formatDate(new Date($('#register_date').val()));
+        }
+        else{
+            register_date = null;
+        }
+        console.log(register_date);
+        if (register_company != '') {
+            load_data_register(register_company, register_search, register_date, page);
+        } else {
+            load_data_register("%%", register_search, register_date, page);
+        }
+    });
+    $('#register_search').keyup(function() {
+        var page = "0";
+        var register_date = "";
+        var register_search = $(this).val();
+        var register_company = $('#register_company').val();
+        if(!register_date){
+            var register_date = formatDate(new Date($('#register_date').val()));
+        }
+        else{
+            var register_date = null;
+        }
+        console.log(register_date);
+        if (register_search != "") {
+            load_data_register(register_company, register_search, register_date, page);
+        } else {
+            load_data_register(register_company, "%%", register_date, page);
+        }
+    });
+    $('#register_date').change(function() {
+        var page = "0";
+        var register_date = "";
+        if(!register_date){
+            var register_date = formatDate(new Date($('#register_date').val()));
+        }
+        else{
+            var register_date = null;
+        }
+        console.log(register_date);
+        var register_company = $('#register_company').val();
+        var register_search = $('#register_search').val();
+        if (register_date != "") {
+            load_data_register(register_company, register_search, register_date, page);
+        } else {
+            load_data_register(register_company, register_search, "%%", page);
+        }
+
+    });
+
+    $(document).on('click', '.page-links-register', function() {
+        var page_register = this.id;
+        var register_company = $('#register_company').val();
+        var register_search = $('#register_search').val();
+        var register_date = formatDate(new Date($('#register_date').val()));
+        if (register_search != "" || register_company != "" || register_date != "") {
+            load_data_register(register_company, register_search, register_date, page_register);
+        } else {
+            load_data_register("%%", "%%", "%%", page_register);
+        }
+    });
+
+
+
+    load_data_registerdetail("");
+
+    function load_data_registerdetail(query) {
+        $.ajax({
+            url: "fetch_registerdetail.php",
+            method: "POST",
+            data: {
+                query: query
+            },
+            success: function(data) {
+                $('#result_registerdetail').html(data);
+            }
+        });
+    }
+    $(document).on('click', '.btndetail', function() {
+        var details = $('#detail').val();
+        if (details != '') {
+            load_data_registerdetail(details);
+        } else {
+            load_data_registerdetail("");
+        }
+    });
+
+
+
+});
+</script>
 
 
 

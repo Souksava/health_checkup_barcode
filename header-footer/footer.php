@@ -24,6 +24,8 @@ $.widget.bridge('uibutton', $.ui.button)
 <!-- Bootstrap 4 -->
 <script src="<?php echo $path ?>dist/js/loading.js"></script>
 <script src="<?php echo $path ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="<?php echo $path ?>plugins/bootstrap/js/jquery-1.9.1.min.js"></script>
+<script src="<?php echo $path ?>plugins/bootstrap/js/modernizr-2.6.2.min.js"></script> -->
 <!-- ChartJS -->
 <script src="<?php echo $path ?>plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -45,10 +47,10 @@ $.widget.bridge('uibutton', $.ui.button)
 <!-- AdminLTE App -->
 <script src="<?php echo $path ?>dist/js/adminlte.js"></script>
 <script src="<?php echo $path ?>dist/js/style.js"></script>
+<script src="<?php echo $path ?>dist/js/pageload.js"></script>
 <script src="<?php echo $path ?>dist/js/jquery.highlight.js"></script>
-<script src="fetch.js"></script>
+<!-- <script src="fetch.js"></script> -->
 <!-- <script src="<?php echo $path ?>dist/js/modal.js" type="text/javascript"></script> -->
-
 <script>
 // $(document).bind("contextmenu",function(e){
 //   return false;

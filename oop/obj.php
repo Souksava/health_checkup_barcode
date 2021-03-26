@@ -428,6 +428,25 @@ class obj{
         global $result_registerdetail;
         $result_registerdetail = mysqli_query($conn,"call select_registerdetail('$reg_id');");
     }
+    public static function del_register($reg_id){
+        global $conn;
+        $result = mysqli_query($conn,"call del_register('$reg_id')");
+        if(!$result){
+            echo"<script>";
+            echo"window.location.href='register?del=fail';";
+            echo"</script>";
+        }
+        else{
+            echo"<script>";
+            echo"window.location.href='register?del2=success';";
+            echo"</script>";
+        }
+    }
+    public static function print_barcode($reg_id){
+        global $conn;
+        global $result_barcode;
+        $result_barcode = mysqli_query($conn,"call register_print('$reg_id')");
+    }
 }
 $obj = new obj();
 ?>

@@ -16,10 +16,10 @@
  }
  if(isset($_POST["query"]) || isset($_POST["query2"]) || isset($_POST["dates"]))
 {
-   $highlight = $_POST['query'];
-   $highlight2 = $_POST['query2'];
-   $highlight3 = $_POST['dates'];
-   $obj->select_register_limit("%".$_POST['query']."%","%".$_POST['query2']."%", "%".$_POST['dates']."%",$page);
+   $highlight = $_POST["query"];
+   $highlight2 = $_POST["query2"];
+   $highlight3 = date("d/m/Y",strtotime($_POST["dates"]));
+   $obj->select_register_limit("%".trim($_POST['query'])."%","%".trim($_POST['query2'])."%", "%".trim($_POST['dates'])."%",$page);
 }
 else
 {
@@ -55,7 +55,7 @@ $no_ += 1;
         <td style="display: none;">'.$row["reg_id"].'</td>
         <td>
         <a href="#" data-toggle="modal" data-target="#exampleModalPrint"
-            class="fas fa-print toolcolor btnUpdate_cust"></a>&nbsp; &nbsp;
+            class="fas fa-print toolcolor btnPrint"></a>&nbsp; &nbsp;
         <a href="#" data-toggle="modal" class="fas fa-info toolcolor btndetail"></a>&nbsp; &nbsp;
         <a href="#" data-toggle="modal" data-target="#exampleModalDeleteRegiter"
             class="fa fa-trash toolcolor btnDelete_register"></a>
@@ -69,7 +69,7 @@ $no_ += 1;
         <td>'.$row["age"].'</td>
         <td>'.$row["company"].'</td>
         <td>'.$row["year"].'</td>
-        <td>'.$row["date"].'</td>
+        <td>'.date("d/m/Y",strtotime($row["date"])).'</td>
         <td>'.$row["time"].'</td>
     </tr>
   ';
@@ -93,12 +93,12 @@ $no_ += 1;
  $count = mysqli_num_rows($result_register);
  mysqli_free_result($result_register);  
  mysqli_next_result($conn);
- $a = ceil($count/15);
+ $a = ceil($count/50);
  if(isset($_POST['page'])){
     if($_POST['page'] > 1){
        $previous = $_POST['page'] - 1;
        echo '     
-       <nav aria-label="...">
+       <nav aria-label="..." class="table-responsive4">
           <ul class="pagination">
              <li class="page-item">
                 <a href="#" class="btn btn-danger page-links-register" id="'.$previous.'" style="color: white!important;width: 70px;" value="'.$previous.'">ກັບຄືນ</a>
@@ -106,12 +106,12 @@ $no_ += 1;
      ';
     }
     else{
-       echo' <nav aria-label="...">
+       echo' <nav aria-label="..." class="table-responsive4">
                 <ul class="pagination">';
     }
  }
  else{
-    echo' <nav aria-label="...">
+    echo' <nav aria-label="..." class="table-responsive4">
              <ul class="pagination">';
  }
  $i = 0;
@@ -178,10 +178,10 @@ else
 <script type="text/javascript">
 var highlight = "<?php echo $_POST['query']; ?>";
 var highlight2 = "<?php echo $_POST['query2']; ?>";
-// var highlight3 = "<?php echo $_POST['dates']; ?>";
+var highlight3 = "<?php echo date("d/m/Y",strtotime($_POST["dates"])); ?>";
 $('.result_register').highlight([highlight]);
 $('.result_register').highlight([highlight2]);
-// $('.result_register').highlight([highlight3]);
+$('.result_register').highlight([highlight3]);
 $('.btndetail').on('click', function() {
         $tr = $(this).closest('tr');
         var data = $tr.children("td").map(function() {
@@ -192,13 +192,23 @@ $('.btndetail').on('click', function() {
         $('#detail').val(data[0]);
 });
 
-//    $('.btnAddEmp').on('click', function() {
-//         $('#exampleModalRegisterEmp').modal('show');
-//         $tr = $(this).closest('tr');
-//         var data = $tr.children("td").map(function() {
-//             return $(this).text();
-//         }).get();
-//         console.log(data);
-//         $('#register_barcode').val(data[2]);
-//     });
+   $('.btnDelete_register').on('click', function() {
+        $('#exampleModalDeleteRegiter').modal('show');
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+        console.log(data);
+        $('#delete_register').val(data[0]);
+    });
+    $('.btnPrint').on('click', function() {
+        $('#exampleModalPrint').modal('show');
+        $tr = $(this).closest('tr');
+        var data = $tr.children("td").map(function() {
+            return $(this).text();
+        }).get();
+        console.log(data);
+        $('#print_barcode').val(data[0]);
+        $('#barcode_id').val(data[3]);
+    });
 </script>

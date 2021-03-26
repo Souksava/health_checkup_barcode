@@ -229,6 +229,11 @@ sup {
     height: 200px;
 }
 
+.table-responsive4 {
+    overflow-y: scroll;
+    height: 50px;
+}
+
 .table-responsive3 th {
     position: sticky!important;
     top: 0!important;

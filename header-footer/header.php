@@ -21,6 +21,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo $path ?>dist/css/adminlte.min.css">
     <link rel="stylesheet" href="<?php echo $path ?>dist/css/alt/style.css">
+    <link rel="stylesheet" href="<?php echo $path ?>dist/css/alt/pageload.css">
 
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="<?php echo $path ?>plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
@@ -36,8 +37,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="<?php echo $path ?>dist/js/sweetalert.min.js"></script>
 
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+    </div>      
 <?php
      include (''.$path.'oop/obj.php');
 ?>
@@ -79,7 +84,7 @@
     </div>
     <aside class="main-sidebar sidebar-dark-primary elevation-4 font14">
         <!-- Brand Logo -->
-        <a href="../Main.php" class="brand-link">
+        <a href="<?php echo $links ?>Main" class="brand-link">
             <img src="<?php echo $path ?>image/health.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                 style="opacity: .8">
             <span class="brand-text font-weight-light">Health Checkup</span>

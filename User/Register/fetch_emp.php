@@ -110,12 +110,12 @@ $no_ += 1;
  $count = mysqli_num_rows($resultemp_count);
  mysqli_free_result($resultemp_count);  
  mysqli_next_result($conn);
- $a = ceil($count/30);
+ $a = ceil($count/50);
  if(isset($_POST['page'])){
     if($_POST['page'] > 1){
        $previous = $_POST['page'] - 1;
        echo '     
-       <nav aria-label="...">
+       <nav aria-label="..." class="table-responsive4">
           <ul class="pagination">
              <li class="page-item">
                 <a href="#" class="btn btn-danger page-links_emp" id="'.$previous.'" style="color: white!important;width: 70px;" value="'.$previous.'">ກັບຄືນ</a>
@@ -123,12 +123,12 @@ $no_ += 1;
      ';
     }
     else{
-       echo' <nav aria-label="...">
+       echo' <nav aria-label="..." class="table-responsive4">
                 <ul class="pagination">';
     }
  }
  else{
-    echo' <nav aria-label="...">
+    echo' <nav aria-label="..." class="table-responsive4">
              <ul class="pagination">';
  }
  $i = 0;
