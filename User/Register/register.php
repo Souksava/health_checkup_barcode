@@ -890,7 +890,16 @@
         swal("", "ບຣາໂຄດນີ້ໄດ້ທຳການລົງທະບຽນແລ້ວ !", "info");
         </script>';
       }  
-    
+      if(isset($_GET["save2"])=="success"){
+        echo'<script type="text/javascript">
+        swal("", "ບັນທຶກຂໍ້ມູນສຳເລັດ !", "success");
+        </script>';
+      }  
+      if(isset($_GET["save"])=="fail"){
+        echo'<script type="text/javascript">
+        swal("", "ບໍ່ສາມາດບັນທຶກຂໍ້ມູນໄດ້ !", "error");
+        </script>';
+      }  
 ?>
 <?php
     include ("../../header-footer/footer.php");
