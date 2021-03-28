@@ -114,6 +114,11 @@ class obj{
         global $resultemp_count;
         $resultemp_count = mysqli_query($conn,"call select_employee('$company','$search');");
     }
+    public static function export_emp($company,$search){
+        global $conn;
+        global $resultexport_emp;
+        $resultexport_emp = mysqli_query($conn,"call export_emp('$company','$search');");
+    }
     public static function delete_emp($id){
         global $conn;
         // $check_del_emp = mysqli_query($conn,"call check_del_emp('$id');");

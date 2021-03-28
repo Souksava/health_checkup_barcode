@@ -68,7 +68,7 @@ if(isset($_POST["btnPrint"])){
         </div>
         <div class="paper2">
             <div class="left-80">
-                ຊື່: '.$row["emp_name"].' '.$row["surname"].'
+                '.$row["emp_name"].' '.$row["surname"].'
             </div>
             <div class="left">
             '.$row["pack_id"].' &nbsp;
@@ -77,9 +77,11 @@ if(isset($_POST["btnPrint"])){
         <br>
         <img src="barcode/'.$row["barcode"].'.jpg" style="width: 87%;height: 20px;padding: 2mm;padding-top: -3.5mm;" align="center" alt="">
         <div align="center" style="font-size: 8px;padding-top: -1.3mm;">
-            '.$row["barcode"].' <br>
+            '.$row["barcode"].'
+        </div>
+        <div align="left" style="font-size: 8px;padding-top: -1.3mm;">
             '.$row["company"].'<br>
-            '.$row["date"].'
+            '.date("d/m/Y",strtotime($row["date"])).'
         </div>
     </div>
                 ';

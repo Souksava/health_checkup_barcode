@@ -590,21 +590,27 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="input-group mb-3">
-                    <input type="text" name="search_company" id="search_company" class="form-control"
-                        placeholder="ບໍລິສັດ" aria-describedby="button-addon2">
-                    <input type="text" name="emp_search" id="emp_search" class="form-control"
-                        placeholder="ລະຫັດ ພ/ງ, ຊື່, ອາຍຸ, ບໍລິສັດ" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModalUpdateEmp"
-                        type="button" id="button-addon2">
-                        ເພີ່ມ ພ/ງ
-                    </button>
-                </div>
-                <div id="result_data_emp" class="result_data_emp">
-                    <?php
+                <form action="exportemployee" method="POST" id="form_export_employee" target="_blank">
+                    <div class="input-group mb-3">
+                        <input type="text" name="search_company" id="search_company" class="form-control"
+                            placeholder="ບໍລິສັດ" aria-describedby="button-addon2">
+                        <input type="text" name="emp_search" id="emp_search" class="form-control"
+                            placeholder="ລະຫັດ ພ/ງ, ຊື່, ອາຍຸ, ບໍລິສັດ" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" data-toggle="modal"
+                            data-target="#exampleModalUpdateEmp" type="button" id="button-addon2">
+                            ເພີ່ມ ພ/ງ
+                        </button>
+                        <button class="btn btn-outline-success"
+                            type="submit" name="export_employee" id="export_employee">
+                            Export
+                        </button>
+                    </div>
+                    <div id="result_data_emp" class="result_data_emp">
+                        <?php
                     include ($path."header-footer/loading.php");
                 ?>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -905,19 +911,19 @@
     include ("../../header-footer/footer.php");
 ?>
 <script>
-        function formatDate(date) {
-            var d = new Date(date),
-                month = "" + (d.getMonth() + 1),
-                day = "" + d.getDate(),
-                year = d.getFullYear();
+function formatDate(date) {
+    var d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
 
-            if (month.length < 2) 
-                month = "0" + month;
-            if (day.length < 2) 
-                day = "0" + day;
+    if (month.length < 2)
+        month = "0" + month;
+    if (day.length < 2)
+        day = "0" + day;
 
-            return [year, month, day].join("-");
-        }   
+    return [year, month, day].join("-");
+}
 </script>
 <script>
 loadReg();
@@ -1254,7 +1260,6 @@ function checkInputs_form_delete_register() {
 </script>
 
 <script>
-
 $(document).ready(function() {
     load_data_emp("%%", "%%", "0");
     load_data_package("%%", "0");
@@ -1369,10 +1374,9 @@ $(document).ready(function() {
         var register_company = $(this).val();
         var register_search = $('#register_search').val();
         var valueDate = $('#register_date').val();
-        if(!Date.parse(valueDate)){
+        if (!Date.parse(valueDate)) {
             var register_date = "";
-        }
-        else{
+        } else {
             var register_date = formatDate(new Date($('#register_date').val()));
         }
         console.log(register_date);
@@ -1387,10 +1391,9 @@ $(document).ready(function() {
         var register_search = $(this).val();
         var register_company = $('#register_company').val();
         var valueDate = $('#register_date').val();
-        if(!Date.parse(valueDate)){
+        if (!Date.parse(valueDate)) {
             var register_date = "";
-        }
-        else{
+        } else {
             var register_date = formatDate(new Date($('#register_date').val()));
         }
         console.log(register_date);
@@ -1403,10 +1406,9 @@ $(document).ready(function() {
     $('#register_date').change(function() {
         var page = "0";
         var register_date = "";
-        if(!register_date){
+        if (!register_date) {
             var register_date = formatDate(new Date($('#register_date').val()));
-        }
-        else{
+        } else {
             var register_date = null;
         }
         console.log(register_date);
