@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 <?php
 if(isset($_POST["btnPrint"])){
     $path = "../../";
@@ -17,84 +8,69 @@ if(isset($_POST["btnPrint"])){
     $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
     file_put_contents('barcode/'.$barcode.'.jpg', $generatorSVG->getBarcode($barcode, $generatorSVG::TYPE_CODE_128,$border,$height));
     require_once '../../vendor/autoload.php';
-
+    //158
     $mpdf = new \Mpdf\Mpdf([
-        'format'        => "A4",
-        'mode'              => 'utf-8',      
+        'format' => [105,23],
+        'mode' => 'utf-8',      
         'default_font_size' => 8,
-        'margin_top' => 2,
-        'margin_left' => 1.5,
-        'margin_bottom' => 150,
+        'margin_top' => 2.2,
+        'margin_left' => 2.5,
+        'margin_bottom' => 0,
         'default_font' => 'saysettha_ot'
     ]);
     $content = '<style>
         .paper{
-            width: 53%;
-            font-size: 10px;
-        }
-        .paper2{
             width: 100%;
-        }
-        .paper .col-2{
-            width: 48%;
-            height: 30mm;
             float: left;
-            margin-left: 0.8mm;
+            font-size: 8px;
+            padding-left: 5px;
         }
-        .left-80{
-            width: 77%;
+        .col-50{
+            width: 49%;
             float: left;
         }
-        .left{
+        .col2-50{
+            width: 65%;
             float: left;
-            width: 22%;
-            text-align: right;
+        }
+        .col3-50{
+            width: 34%;
+            float: left;
         }
                 </style>
     ';
-    $content .='<div class="paper" >';
+    $content .='<div class="paper" >          
+    ';
     $obj->print_barcode($_POST["print_barcode"]);
     while($row = mysqli_fetch_array($result_barcode,MYSQLI_ASSOC)){
-    // $row = mysqli_fetch_array($result_barcode,MYSQLI_ASSOC);
     $content .='    
-    <div class="col-2" align="center" style="padding-top: -9px;">
-        <div class="paper2" style="font-size: 8px;">
-            <div class="left-80">
-                Reg: '.$row["barcode"].' 
-            </div>
-            <div class="left">
-                No:'.$row["queue"].' &nbsp;
-            </div>
+    <div class="col-50">
+        <div class="col2-50">
+        &nbsp;&nbsp;Reg: 1234567890 <br>
+        &nbsp;&nbsp;ທ່ານກອງມະນີ ມະນີຈັນ
         </div>
-        <div class="paper2">
-            <div class="left-80">
-                '.$row["emp_name"].' '.$row["surname"].'
-            </div>
-            <div class="left">
+        <div class="col3-50" align="right">
+            No. '.$row["queue"].'0000  &nbsp; <br>
             '.$row["pack_id"].' &nbsp;
-            </div>
         </div>
-        <br>
-        <img src="barcode/'.$row["barcode"].'.jpg" style="width: 87%;height: 20px;padding: 2mm;padding-top: -3.5mm;" align="center" alt="">
-        <div align="center" style="font-size: 8px;padding-top: -1.3mm;">
+        <div align="center">
+            <img src="barcode/'.$row["barcode"].'.jpg" style="width: 87%;height: 20px;" alt="">
+        </div>
+        <div align="center">
             '.$row["barcode"].'
         </div>
-        <div align="left" style="font-size: 8px;padding-top: -1.3mm;">
-            '.$row["company"].'<br>
-            '.date("d/m/Y",strtotime($row["date"])).'
+        <div align="left">
+        &nbsp;&nbsp;'.$row["company"].'<br>
+        &nbsp;&nbsp;'.$row["date"].'
         </div>
     </div>
                 ';
     }
-    $content .='</div>';
+    $content .=' 
+    </div>
+    ';
     $mpdf->WriteHTML($content);
     $mpdf->Output("","I");
 }
-
 ?>
-
-
-</body>
-
-</html>
-
+    
