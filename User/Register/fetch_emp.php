@@ -8,7 +8,7 @@
         $page = 0;
         }
         else{
-           $page = ($page*15)-15;
+           $page = ($page*50)-50;
         }
   }
   else{

@@ -30,11 +30,11 @@ if(isset($_POST["btnPrint"])){
             float: left;
         }
         .col2-50{
-            width: 65%;
+            width: 73%;
             float: left;
         }
         .col3-50{
-            width: 34%;
+            width: 26%;
             float: left;
         }
                 </style>
@@ -46,12 +46,12 @@ if(isset($_POST["btnPrint"])){
     $content .='    
     <div class="col-50">
         <div class="col2-50">
-        &nbsp;&nbsp;Reg: 1234567890 <br>
-        &nbsp;&nbsp;ທ່ານກອງມະນີ ມະນີຈັນ
+        &nbsp;&nbsp;Reg: '.$row["barcode"].' <br>
+        &nbsp;&nbsp;'.$row["emp_name"].' '.$row["surname"].'
         </div>
         <div class="col3-50" align="right">
-            No. '.$row["queue"].'0000  &nbsp; <br>
-            '.$row["pack_id"].' &nbsp;
+            No.'.$row["queue"].' &nbsp; <br>
+            '.$row["pack_id"].'
         </div>
         <div align="center">
             <img src="barcode/'.$row["barcode"].'.jpg" style="width: 87%;height: 20px;" alt="">
@@ -69,8 +69,9 @@ if(isset($_POST["btnPrint"])){
     $content .=' 
     </div>
     ';
+    // $mpdf->SetJS('this.print()');
     $mpdf->WriteHTML($content);
-    $mpdf->Output("","I");
+    $mpdf->Output("Barcode.pdf","I");
 }
 ?>
     

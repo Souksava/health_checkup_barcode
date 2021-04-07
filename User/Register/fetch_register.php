@@ -8,7 +8,7 @@
         $page = 0;
         }
         else{
-           $page = ($page*15)-15;
+           $page = ($page*50)-50;
         }
   }
   else{
@@ -61,8 +61,8 @@ $no_ += 1;
             class="fa fa-trash toolcolor btnDelete_register"></a>
         </td>
         <td>'.$no_.'</td>
-        <td>'.$row["barcode"].'</td>
-        <td>'.$row["emp_id"].'</td>
+        <td class="double_barcode">'.$row["barcode"].'</td>
+        <td class="double_barcode">'.$row["emp_id"].'</td>
         <td>'.$row["emp_name"].'</td>
         <td>'.$row["surname"].'</td>
         <td>'.$row["queue"].'</td>
@@ -84,6 +84,7 @@ $no_ += 1;
  if(isset($_POST["query"]) || isset($_POST["query2"]) || isset($_POST["dates"]))
  {
     $obj->select_register("%".$_POST['query']."%","%".$_POST['query2']."%","%".$_POST["dates"]."%");
+   //  $obj->select_register("%".trim($_POST['query'])."%","%".trim($_POST['query2'])."%", "%".trim($_POST['dates'])."%");
  }
  else
  {
@@ -120,7 +121,7 @@ $no_ += 1;
  if(isset($_POST['page'])){
     $page_next = $_POST['page'];
     $page_next2 = $_POST['page'];
-    if($_POST['page'] == 0 || $_POST['page'] == ''){
+    if($_POST["page"] == 0 || $_POST["page"] == ''){
        $page_next2 = 1;
     }
  }

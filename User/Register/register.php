@@ -439,7 +439,7 @@
         </div>
     </div>
 </form>
-<form action="printbarcode" method="POST" target="_blank">
+<form action="printbarcode" method="POST" target="">
     <div class="modal fade" id="exampleModalPrint" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -1426,7 +1426,13 @@ $(document).ready(function() {
         var page_register = this.id;
         var register_company = $('#register_company').val();
         var register_search = $('#register_search').val();
-        var register_date = formatDate(new Date($('#register_date').val()));
+        var valueDate = $('#register_date').val();
+        console.log(page_register);
+        if (!Date.parse(valueDate)) {
+            var register_date = "";
+        } else {
+            var register_date = formatDate(new Date($('#register_date').val()));
+        }
         if (register_search != "" || register_company != "" || register_date != "") {
             load_data_register(register_company, register_search, register_date, page_register);
         } else {
